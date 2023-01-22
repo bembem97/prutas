@@ -12,6 +12,8 @@ const options = {
 
 const styles = ({}: LinkProps) => [
   //todo: DEFAULTS
+  tw`rounded`,
+
   //todo: PROPS
 ]
 

@@ -1,7 +1,9 @@
 import tw, { styled, css, theme } from "twin.macro"
 import isPropValid from "@emotion/is-prop-valid"
 
-const gridRowsFunc = (row: number = 1, breakpoint: string = "none") => {
+type ColRow = number | string | "none"
+
+const gridRowsFunc = (row: ColRow = 1, breakpoint: string = "none") => {
   const rows = [
     "grid-template-rows: repeat(1, minmax(0, 1fr))",
     "grid-template-rows: repeat(2, minmax(0, 1fr))",
@@ -11,6 +13,16 @@ const gridRowsFunc = (row: number = 1, breakpoint: string = "none") => {
     "grid-template-rows: repeat(6, minmax(0, 1fr))",
     // "grid-template-rows: none",
   ]
+
+  if (typeof row === "string" && row === "none") {
+    return "grid-template-rows: none"
+  }
+
+  if (typeof row === "string") {
+    return css`
+      grid-template-rows: ${row};
+    `
+  }
 
   switch (breakpoint) {
     case "none":
@@ -62,7 +74,7 @@ const gridRowsFunc = (row: number = 1, breakpoint: string = "none") => {
   }
 }
 
-const gridColumnsFunc = (col: number = 1, breakpoint: string = "none") => {
+const gridColumnsFunc = (col: ColRow = 1, breakpoint: string = "none") => {
   const cols = [
     "grid-template-columns: repeat(1, minmax(0, 1fr))",
     "grid-template-columns: repeat(2, minmax(0, 1fr))",
@@ -79,11 +91,22 @@ const gridColumnsFunc = (col: number = 1, breakpoint: string = "none") => {
     // "grid-template-columns: none",
   ]
 
+  if (typeof col === "string" && col === "none") {
+    return "grid-template-columns: none"
+  }
+
   switch (breakpoint) {
     case "none":
-      return cols[col - 1]
+      return "grid-template-columns: none"
 
     case "xs":
+      if (typeof col === "string") {
+        return css`
+          @media (min-width: ${theme`screens.xs`}) {
+            grid-template-columns: ${col};
+          }
+        `
+      }
       return css`
         @media (min-width: ${theme`screens.xs`}) {
           ${cols[col - 1]}
@@ -91,6 +114,13 @@ const gridColumnsFunc = (col: number = 1, breakpoint: string = "none") => {
       `
 
     case "sm":
+      if (typeof col === "string") {
+        return css`
+          @media (min-width: ${theme`screens.sm`}) {
+            grid-template-columns: ${col};
+          }
+        `
+      }
       return css`
         @media (min-width: ${theme`screens.sm`}) {
           ${cols[col - 1]}
@@ -98,6 +128,13 @@ const gridColumnsFunc = (col: number = 1, breakpoint: string = "none") => {
       `
 
     case "md":
+      if (typeof col === "string") {
+        return css`
+          @media (min-width: ${theme`screens.md`}) {
+            grid-template-columns: ${col};
+          }
+        `
+      }
       return css`
         @media (min-width: ${theme`screens.md`}) {
           ${cols[col - 1]}
@@ -105,6 +142,13 @@ const gridColumnsFunc = (col: number = 1, breakpoint: string = "none") => {
       `
 
     case "lg":
+      if (typeof col === "string") {
+        return css`
+          @media (min-width: ${theme`screens.lg`}) {
+            grid-template-columns: ${col};
+          }
+        `
+      }
       return css`
         @media (min-width: ${theme`screens.lg`}) {
           ${cols[col - 1]}
@@ -112,6 +156,13 @@ const gridColumnsFunc = (col: number = 1, breakpoint: string = "none") => {
       `
 
     case "xl":
+      if (typeof col === "string") {
+        return css`
+          @media (min-width: ${theme`screens.xl`}) {
+            grid-template-columns: ${col};
+          }
+        `
+      }
       return css`
         @media (min-width: ${theme`screens.xl`}) {
           ${cols[col - 1]}
@@ -119,6 +170,13 @@ const gridColumnsFunc = (col: number = 1, breakpoint: string = "none") => {
       `
 
     case "xxl":
+      if (typeof col === "string") {
+        return css`
+          @media (min-width: ${theme`screens.2xl`}) {
+            grid-template-columns: ${col};
+          }
+        `
+      }
       return css`
         @media (min-width: ${theme`screens.2xl`}) {
           ${cols[col - 1]}
@@ -135,21 +193,21 @@ interface GridProps {
   rowGap?: number
   columnGap?: number
 
-  gridRows?: number
-  xsGridRows?: number
-  smGridRows?: number
-  mdGridRows?: number
-  lgGridRows?: number
-  xlGridRows?: number
-  xxlGridRows?: number
+  gridRows?: ColRow
+  xsGridRows?: ColRow
+  smGridRows?: ColRow
+  mdGridRows?: ColRow
+  lgGridRows?: ColRow
+  xlGridRows?: ColRow
+  xxlGridRows?: ColRow
 
-  gridColumns?: number
-  xsGridColumns?: number
-  smGridColumns?: number
-  mdGridColumns?: number
-  lgGridColumns?: number
-  xlGridColumns?: number
-  xxlGridColumns?: number
+  gridColumns?: ColRow
+  xsGridColumns?: ColRow
+  smGridColumns?: ColRow
+  mdGridColumns?: ColRow
+  lgGridColumns?: ColRow
+  xlGridColumns?: ColRow
+  xxlGridColumns?: ColRow
 }
 
 const options = {

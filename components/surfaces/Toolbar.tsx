@@ -11,17 +11,9 @@ const options = {
 const styles = ({}: ToolbarProps) => [
   //todo: DEFAULTS
   tw`flex items-center px-2 h-full`,
-  css`
-    ${Link} {
-      padding: ${theme`spacing.1`};
-      padding-inline: ${theme`spacing.1.5`};
-      transition: background-color 100ms;
-
-      &:hover {
-        background-color: ${theme`colors.primary-dark`};
-      }
-    }
-  `,
+  {
+    [`${Link}`]: tw`p-1 transition-colors hover:bg-primary-dark`,
+  },
 
   //todo: PROPS
 ]

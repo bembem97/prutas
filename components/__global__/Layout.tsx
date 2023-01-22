@@ -6,12 +6,23 @@ import Toolbar from "components/surfaces/Toolbar"
 import Stack from "components/layouts/Stack"
 import Link from "components/navigations/Link"
 import tw from "twin.macro"
+import { useRouter } from "next/router"
 
 interface LayoutProps extends ComponentProps {
   title: string
 }
 
+interface ActiveLink {
+  pathname: string
+  href: string
+}
+
+const active = ({ pathname, href }: ActiveLink) =>
+  pathname === href && tw`bg-primary-darker`
+
 const Layout = ({ title, children }: LayoutProps) => {
+  const { pathname } = useRouter()
+
   return (
     <>
       <Meta title={title} />
@@ -20,8 +31,20 @@ const Layout = ({ title, children }: LayoutProps) => {
       <AppBar as="header" className="header">
         <Toolbar>
           <Stack direction="row" justifyContent="center" tw="w-full text-white">
-            <Link href="/">Home</Link>
-            <Link href="/cart">Cart</Link>
+            <Link href="/" css={[active({ pathname, href: "/" })]}>
+              Home
+            </Link>
+
+            <Link href="/cart" css={[active({ pathname, href: "/cart" })]}>
+              Cart
+            </Link>
+
+            <Link
+              href="/checkout"
+              css={[active({ pathname, href: "/checkout" })]}
+            >
+              Checkout
+            </Link>
           </Stack>
         </Toolbar>
       </AppBar>

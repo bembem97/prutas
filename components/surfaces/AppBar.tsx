@@ -13,7 +13,7 @@ const options = {
 
 const styles = ({ color, position = "sticky" }: AppBarProps) => [
   //todo: DEFAULTS
-  tw`bg-primary shadow-sm`,
+  tw`bg-primary`,
 
   css`
     &.header {

@@ -40,7 +40,7 @@ const SERVICES = [
 const Home: React.FC<ComponentProps> = () => {
   return (
     <Layout title="Home">
-      <Hero url="/images/background/1.jpg">
+      <Hero url="/images/background/3.jpg">
         <Paper bgBlur={5}>
           <Container paddingX={4} paddingY={2}>
             <Stack rowGap={2}>
@@ -126,7 +126,7 @@ const Home: React.FC<ComponentProps> = () => {
               <Text variant="header">About the project</Text>
 
               <Text>
-                Pagkaon is a small project I created as my final project during
+                Prutas is a small project I created as my final project during
                 my college days. It serves as e-commerce for fruit-producing
                 crops and orchards that specializes in providing fresh fruits to
                 customers.
