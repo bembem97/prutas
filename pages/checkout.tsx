@@ -1,7 +1,7 @@
 import tw, { css, styled } from "twin.macro"
 import Text from "components/datadisplay/Text"
 import Container from "components/layouts/Container"
-import Grid from "components/layouts/Grid"
+import GridBox from "components/layouts/GridBox"
 import Layout from "components/__global__/Layout"
 import React from "react"
 import Stack from "components/layouts/Stack"
@@ -24,16 +24,14 @@ const Checkout: React.FC = () => {
   return (
     <Layout title="Checkout">
       <Container maxWidth="lg">
-        <Grid
-          gridColumns={1}
-          mdGridColumns={2}
-          lgGridColumns="2fr 1fr"
-          rowGap={4}
-          columnGap={2}
-        >
+        <GridBox gridColumns={1} rowGap={4} columnGap={2}>
           <Stack as="form" id="checkout-form">
-            <Grid gridColumns={1} mdGridColumns={2} columnGap={1} rowGap={3}>
-              <Text variant="title" tw="col-span-2">
+            <GridBox
+              gridColumns={{ xs: 1, mobile: 2 }}
+              rowGap={3}
+              columnGap={1}
+            >
+              <Text variant="title" tw="mobile:col-span-2">
                 Shipping Details
               </Text>
 
@@ -41,12 +39,12 @@ const Checkout: React.FC = () => {
               <TextField label="Contact Number" />
               <TextField
                 label="Address"
-                containerProps={{ css: [tw`col-span-2`] }}
+                containerProps={{ css: [tw`mobile:col-span-2`] }}
               />
               <TextField label="City" />
               <TextField label="Zip Code" />
 
-              <Text variant="title" tw="col-span-2">
+              <Text variant="title" tw="mobile:col-span-2">
                 Payment Info
               </Text>
 
@@ -54,7 +52,7 @@ const Checkout: React.FC = () => {
               <TextField label="Card Holder" />
               <TextField label="Security Code" />
 
-              <Grid gridColumns={2} columnGap={0.5}>
+              <GridBox gridColumns={2} columnGap={1}>
                 <TextField label="Month" fullWidth />
                 <TextField label="Year" fullWidth />
                 <Text
@@ -63,11 +61,11 @@ const Checkout: React.FC = () => {
                 >
                   Expiration Date
                 </Text>
-              </Grid>
-            </Grid>
+              </GridBox>
+            </GridBox>
           </Stack>
 
-          <Stack rowGap={1}>
+          <Stack rowGap={1} tw="row-start-1 md:row-auto">
             <Text variant="title">Order Summary</Text>
 
             <Table>
@@ -125,12 +123,12 @@ const Checkout: React.FC = () => {
             </Button>
           </Stack>
 
-          <Stack tw="col-span-2" alignItems="start">
+          <Stack tw="md:col-span-2" alignItems="start">
             <ButtonLink href="/cart" color="warning">
               Back to cart
             </ButtonLink>
           </Stack>
-        </Grid>
+        </GridBox>
       </Container>
     </Layout>
   )

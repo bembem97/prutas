@@ -45,6 +45,10 @@ const Layout = ({ title, children }: LayoutProps) => {
             >
               Checkout
             </Link>
+
+            <Link href="/orders" css={[active({ pathname, href: "/orders" })]}>
+              Orders
+            </Link>
           </Stack>
         </Toolbar>
       </AppBar>

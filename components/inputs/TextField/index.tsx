@@ -8,10 +8,6 @@ import React, {
 import Input from "./Input"
 import tw, { styled } from "twin.macro"
 
-// interface ContainerProps {
-//   css?: DOMAttributes<HTMLDivElement>
-// }
-
 interface TextFieldProps {
   label: string
   type?: HTMLInputTypeAttribute

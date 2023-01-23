@@ -62,15 +62,8 @@ const gridRowsFunc = (row: ColRow = 1, breakpoint: string = "none") => {
         }
       `
 
-    case "xxl":
-      return css`
-        @media (min-width: ${theme`screens.2xl`}) {
-          ${rows[row - 1]}
-        }
-      `
-
     default:
-      throw new Error("Invalid breakpoints. xs | sm | md | lg | xl | xxl")
+      throw new Error("Invalid breakpoints. xs | sm | md | lg | xl")
   }
 }
 
@@ -169,22 +162,8 @@ const gridColumnsFunc = (col: ColRow = 1, breakpoint: string = "none") => {
         }
       `
 
-    case "xxl":
-      if (typeof col === "string") {
-        return css`
-          @media (min-width: ${theme`screens.2xl`}) {
-            grid-template-columns: ${col};
-          }
-        `
-      }
-      return css`
-        @media (min-width: ${theme`screens.2xl`}) {
-          ${cols[col - 1]}
-        }
-      `
-
     default:
-      throw new Error("Invalid breakpoints. xs | sm | md | lg | xl | xxl")
+      throw new Error("Invalid breakpoints. xs | sm | md | lg | xl")
   }
 }
 

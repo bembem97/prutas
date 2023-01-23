@@ -1,7 +1,7 @@
 import React from "react"
 import Text from "components/datadisplay/Text"
 import Container from "components/layouts/Container"
-import Grid from "components/layouts/Grid"
+import GridBox from "components/layouts/GridBox"
 import Stack from "components/layouts/Stack"
 import Hero from "components/surfaces/Hero"
 import Layout from "components/__global__/Layout"
@@ -41,11 +41,16 @@ const Home: React.FC<ComponentProps> = () => {
   return (
     <Layout title="Home">
       <Hero url="/images/background/3.jpg">
-        <Paper bgBlur={5}>
+        <Paper bgBlur={2}>
           <Container paddingX={4} paddingY={2}>
             <Stack rowGap={2}>
-              <Text variant="title">Fresh Fruits</Text>
-              <Text variant="large">Fruits 100% Organic</Text>
+              <Text variant="subtitle" color="primary" tw="pl-2">
+                Fresh Fruits
+              </Text>
+
+              <Text variant="large" tw="font-semibold">
+                Fruits 100% Organic
+              </Text>
 
               <Button tw="max-w-full sm:max-w-fit">Shop Now</Button>
             </Stack>
@@ -54,8 +59,8 @@ const Home: React.FC<ComponentProps> = () => {
       </Hero>
 
       <Container maxWidth="lg">
-        <Grid gridColumns={1} gap={6}>
-          <Grid gridColumns={1} xsGridColumns={2} mdGridColumns={4} gap={1}>
+        <GridBox gridColumns={1} gap={6}>
+          <GridBox gridColumns={{ xs: 1, sm: 2, md: 4 }} gap={1}>
             <Text variant="header" tw="xs:col-span-2 md:col-span-4">
               Services
             </Text>
@@ -73,8 +78,8 @@ const Home: React.FC<ComponentProps> = () => {
                 </Container>
               </Paper>
             ))}
-          </Grid>
-          <Grid gridColumns={1} xsGridColumns={2} mdGridColumns={4} gap={1}>
+          </GridBox>
+          <GridBox gridColumns={{ xs: 1, sm: 2, md: 4 }} gap={1}>
             <Text variant="header" tw="xs:col-span-2 md:col-span-4">
               Popular Products
             </Text>
@@ -120,8 +125,8 @@ const Home: React.FC<ComponentProps> = () => {
                 </CardContent>
               </Card>
             ))}
-          </Grid>
-          <Grid mdGridColumns={2}>
+          </GridBox>
+          <GridBox gridColumns={{ xs: 1, md: 2 }} gap={0.5}>
             <Stack justifyContent="center">
               <Text variant="header">About the project</Text>
 
@@ -132,14 +137,7 @@ const Home: React.FC<ComponentProps> = () => {
                 customers.
               </Text>
             </Stack>
-            <div
-              css={[
-                tw`relative`,
-                css`
-                  height: 420px;
-                `,
-              ]}
-            >
+            <div css={[tw`relative h-[275px] mobile:h-[350px] md:h-[450px]`]}>
               <Image
                 src="/images/background/4.jpg"
                 alt="fruit"
@@ -147,8 +145,8 @@ const Home: React.FC<ComponentProps> = () => {
                 tw="object-cover"
               />
             </div>
-          </Grid>
-        </Grid>
+          </GridBox>
+        </GridBox>
       </Container>
     </Layout>
   )

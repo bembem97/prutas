@@ -4,6 +4,7 @@ import isPropValid from "@emotion/is-prop-valid"
 interface ButtonProps {
   color?: "error" | "warning" | "primary"
   buttonType?: "button" | "icon" | "text"
+  fullWidth?: boolean
 }
 
 const options = {
@@ -11,7 +12,11 @@ const options = {
     isPropValid(prop) && prop !== "color" && prop !== "buttonType",
 }
 
-const styles = ({ color = "primary", buttonType = "button" }: ButtonProps) => [
+const styles = ({
+  fullWidth,
+  color = "primary",
+  buttonType = "button",
+}: ButtonProps) => [
   tw`transition-colors shadow rounded uppercase text-sm`,
   tw`inline-flex items-center justify-center text-center`,
   // tw`bg-primary hover:bg-primary-dark text-white`,
@@ -40,6 +45,8 @@ const styles = ({ color = "primary", buttonType = "button" }: ButtonProps) => [
   buttonType === "icon" && tw`p-0 h-6 rounded-full w-6 min-h-[12px]`,
   buttonType === "text" &&
     tw`p-0 bg-transparent shadow-none hover:bg-transparent hover:underline`,
+
+  fullWidth && tw`w-full`,
 ]
 
 const Button = styled("button", options)(styles)

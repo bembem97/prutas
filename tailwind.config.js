@@ -1,4 +1,4 @@
-const defaultTheme = require("tailwindcss/defaultTheme")
+// const defaultTheme = require("tailwindcss/defaultTheme")
 const color = require("tailwindcss/colors")
 
 /** @type {import('tailwindcss').Config} */
@@ -31,11 +31,30 @@ module.exports = {
         "warning-dark": color.amber[600],
         "warning-darker": color.amber[900],
       },
-    },
-
-    screens: {
-      xs: "360px",
-      ...defaultTheme.screens,
+      animation: {
+        "fade-in": "fade-in 150ms forwards",
+        "fade-out": "fade-out 150ms forwards",
+      },
+      keyframes: {
+        "fade-in": {
+          "0%": { opacity: 0, transform: "translateY(-8px)" },
+          "100%": { opacity: 1, transform: "translateY(0px)" },
+        },
+        "fade-out": {
+          "0%": { opacity: 1, transform: "translateY(0px)" },
+          "100%": { opacity: 0, transform: "translateY(-8px)" },
+        },
+      },
+      screens: {
+        xs: "0px",
+        sm: "360px",
+        mobile: "412px",
+        md: "640px",
+        tab: "768px",
+        lg: "992px",
+        xl: "1024px",
+        laptop: "1280px",
+      },
     },
   },
   plugins: [],

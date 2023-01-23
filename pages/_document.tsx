@@ -49,6 +49,7 @@ class CustomDocument extends Document<NewDocumentInitialProps> {
         </Head>
         <body>
           <Main />
+          <div id="box"></div>
           <NextScript />
         </body>
       </Html>
