@@ -1,5 +1,5 @@
 import Text from "components/datadisplay/Text"
-import Google from "components/icons/Google"
+import GoogleIcon from "components/icons/Google"
 import LockIcon from "components/icons/Lock"
 import UserIcon from "components/icons/User"
 import Button from "components/inputs/Button"
@@ -12,25 +12,33 @@ import StartIcon from "components/__other__/StartIcon"
 import React from "react"
 import tw from "twin.macro"
 
-const SignIn: React.FC = () => {
+const SignUp: React.FC = () => {
   return (
-    <Layout title="Sign In">
+    <Layout title="Sign Up">
       <Container maxWidth="lg">
         <Container
           maxWidth="sm"
           css={[tw`mt-4 bg-white rounded shadow-md p-8`]}
         >
-          {/* //todo: SIGNIN WITH CREDENTIALS */}
+          {/* //todo: SIGNUP WITH CREDENTIALS */}
           <Text variant="header" align="center" tw="mb-10">
-            Sign In
+            Sign Up
           </Text>
 
           <Stack as="form" rowGap={3} tw="mb-8">
+            <TextField label="Name" startIcon={UserIcon} />
+
             <TextField label="Username" startIcon={UserIcon} />
 
             <TextField label="Password" type="password" startIcon={LockIcon} />
 
-            <Button>Sign In</Button>
+            <TextField
+              label="Repeat Password"
+              type="password"
+              startIcon={LockIcon}
+            />
+
+            <Button>Sign Up</Button>
           </Stack>
 
           {/* //todo: SIGNIN WITH OAUTH (GOOGLE) */}
@@ -40,16 +48,16 @@ const SignIn: React.FC = () => {
             </Text>
 
             <Button color="warning">
-              <StartIcon icon={Google} buttonIcon>
+              <StartIcon icon={GoogleIcon} buttonIcon>
                 Google
               </StartIcon>
             </Button>
 
             {/* //todo: CREATE A CREDENTIAL ACCOUNT */}
             <Stack direction="row" columnGap={0.5}>
-              <Text variant="subtitle">{"Don't have an account?"}</Text>
-              <Link href="/signup" variant="subtitle" color="primary">
-                Sign Up
+              <Text variant="subtitle">{"Already have an account?"}</Text>
+              <Link href="/signin" variant="subtitle" color="primary">
+                Sign In
               </Link>
             </Stack>
           </Stack>
@@ -59,4 +67,4 @@ const SignIn: React.FC = () => {
   )
 }
 
-export default SignIn
+export default SignUp

@@ -4,17 +4,20 @@ import { ComponentProps } from "src/interfaceProps"
 import Text from "components/datadisplay/Text"
 import NextLink from "next/link"
 
-interface LinkProps extends ComponentProps {}
-
-const options = {
-  shouldForwardProp: (prop: string) => isPropValid(prop),
+interface LinkProps extends ComponentProps {
+  cardLink?: boolean
 }
 
-const styles = ({}: LinkProps) => [
+const options = {
+  shouldForwardProp: (prop: string) => isPropValid(prop) && prop !== "cardLink",
+}
+
+const styles = ({ cardLink }: LinkProps) => [
   //todo: DEFAULTS
-  tw`rounded`,
+  tw`rounded inline-block`,
 
   //todo: PROPS
+  cardLink && tw`hover:bg-gray-300/20 transition-colors`,
 ]
 
 const CustomLink = styled(Text, options)(styles)

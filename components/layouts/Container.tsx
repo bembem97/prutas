@@ -2,7 +2,7 @@ import tw, { styled, css, theme } from "twin.macro"
 import isPropValid from "@emotion/is-prop-valid"
 
 interface ContainerProps {
-  maxWidth?: "xs" | "sm" | "md" | "lg" | "xl"
+  maxWidth?: "xs" | "sm" | "md" | "lg" | "xl" | "mobile" | "tab" | "laptop"
 
   noPadding?: boolean
   noPaddingX?: boolean
@@ -59,9 +59,12 @@ const styles = ({
 
   maxWidth == "xs" && tw`max-w-screen-xs`,
   maxWidth == "sm" && tw`max-w-screen-sm`,
+  maxWidth == "mobile" && tw`max-w-screen-mobile`,
   maxWidth == "md" && tw`max-w-screen-md`,
+  maxWidth == "tab" && tw`max-w-screen-tab`,
   maxWidth == "lg" && tw`max-w-screen-lg`,
   maxWidth == "xl" && tw`max-w-screen-xl`,
+  maxWidth == "laptop" && tw`max-w-screen-laptop`,
 ]
 
 const Container = styled("div", options)(styles)

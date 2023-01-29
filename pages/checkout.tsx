@@ -1,9 +1,9 @@
-import tw, { css, styled } from "twin.macro"
+import tw from "twin.macro"
 import Text from "components/datadisplay/Text"
 import Container from "components/layouts/Container"
 import GridBox from "components/layouts/GridBox"
 import Layout from "components/__global__/Layout"
-import React from "react"
+import React, { useEffect } from "react"
 import Stack from "components/layouts/Stack"
 import Button from "components/inputs/Button"
 import TextField from "components/inputs/TextField"
@@ -15,123 +15,435 @@ import TableCell from "components/datadisplay/TableCell"
 import TableBody from "components/datadisplay/TableBody"
 import TableFooter from "components/datadisplay/TableFooter"
 import { LastCell, MiddleCell } from "./cart"
+import { useAppDispatch, useAppSelector } from "src/hooks/redux"
+import EmptyCartMessage from "components/__other__/EmptyCartMessage"
+import { useForm } from "react-hook-form"
+import {
+  ADDRESS,
+  CARDHOLDER,
+  CARDNUMBER,
+  CITY,
+  CONTACT,
+  MONTH,
+  NAME,
+  SECURITYCODE,
+  YEAR,
+  ZIPCODE,
+} from "src/constant"
+import { useAddOrderMutation } from "src/redux/slices/orderDetails"
+import CircularProgress from "components/icons/CircularProgress"
+import { useRouter } from "next/router"
+import { clearCart } from "src/redux/slices/cart"
+
+export interface FormTypes {
+  name: string | ""
+  contactNumber: number | ""
+  address: string | ""
+  city: string | ""
+  zipCode: string | ""
+  cardNumber: number | ""
+  cardHolder: string | ""
+  securityCode: number | ""
+  month: number | ""
+  year: number | ""
+}
 
 const ButtonLink = Button.withComponent(Link)
-// const MiddleCell = styled(TableCell)(() => tw`text-center`)
-// const LastCell = styled(TableCell)(() => tw`text-right`)
 
-const Checkout: React.FC = () => {
+export default function Checkout() {
+  const [addOrder, result] = useAddOrderMutation()
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+
+  const { items, quantity, total } = useAppSelector(
+    (state) => state.slices.cart
+  )
+  const {
+    register,
+    formState,
+    formState: { errors, isSubmitSuccessful },
+    handleSubmit,
+    getValues,
+    reset,
+  } = useForm<FormTypes>({
+    defaultValues: {
+      name: "",
+      contactNumber: "",
+      address: "",
+      city: "",
+      zipCode: "",
+      cardNumber: "",
+      cardHolder: "",
+      securityCode: "",
+      month: "",
+      year: "",
+    },
+  })
+
+  let sanitizeData: FormTypes
+
+  const onSubmit = async (data: FormTypes) => {
+    // todo: SANITIZE DATA FIRST
+    const sanitize = (value: string | number) => {
+      if (typeof value === "string") {
+        return value.replace(/\s+/g, " ").trim()
+      }
+      return value
+    }
+
+    Object.keys(data).forEach((key) => {
+      sanitizeData = {
+        ...sanitizeData,
+        [key]: sanitize(data[key as keyof FormTypes]),
+      }
+    })
+
+    const expirationDate = new Date(
+      sanitizeData.year as number,
+      (sanitizeData.month as number) - 1
+    )
+
+    const products = items.map((item) => ({
+      product: item.product._id,
+      amount: item.amount,
+    }))
+
+    const orderDetails = {
+      order: {
+        name: sanitizeData.name,
+        contactNumber: sanitizeData.contactNumber,
+        address: {
+          street: sanitizeData.address,
+          city: sanitizeData.city,
+          zipCode: sanitizeData.zipCode,
+        },
+        card: {
+          cardNumber: sanitizeData.cardNumber,
+          cardHolder: sanitizeData.cardHolder,
+          securityCode: sanitizeData.securityCode,
+          expirationDate,
+        },
+      },
+      items: {
+        quantity,
+        total,
+        products,
+      },
+    }
+
+    await addOrder(orderDetails)
+  }
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({
+        name: "",
+        contactNumber: "",
+        address: "",
+        city: "",
+        zipCode: "",
+        cardNumber: "",
+        cardHolder: "",
+        securityCode: "",
+        month: "",
+        year: "",
+      })
+    }
+  }, [reset, formState])
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      dispatch(clearCart())
+      router.push("/orders")
+    }
+  }, [result.isSuccess])
+
   return (
     <Layout title="Checkout">
       <Container maxWidth="lg">
-        <GridBox gridColumns={1} rowGap={4} columnGap={2}>
-          <Stack as="form" id="checkout-form">
-            <GridBox
-              gridColumns={{ xs: 1, mobile: 2 }}
-              rowGap={3}
-              columnGap={1}
-            >
-              <Text variant="title" tw="mobile:col-span-2">
-                Shipping Details
-              </Text>
-
-              <TextField label="Name" />
-              <TextField label="Contact Number" />
-              <TextField
-                label="Address"
-                containerProps={{ css: [tw`mobile:col-span-2`] }}
-              />
-              <TextField label="City" />
-              <TextField label="Zip Code" />
-
-              <Text variant="title" tw="mobile:col-span-2">
-                Payment Info
-              </Text>
-
-              <TextField label="Card Number" />
-              <TextField label="Card Holder" />
-              <TextField label="Security Code" />
-
-              <GridBox gridColumns={2} columnGap={1}>
-                <TextField label="Month" fullWidth />
-                <TextField label="Year" fullWidth />
+        {result.isSuccess ? (
+          <Container>
+            <Stack direction="row" justifyContent="center">
+              <Stack alignItems="center">
                 <Text
-                  variant="caption"
-                  tw="font-bold text-primary-dark col-span-2 mt-2"
+                  variant="header"
+                  tw="text-green-600 font-bold text-center"
                 >
-                  Expiration Date
+                  Transaction is successful!
                 </Text>
+
+                <Text variant="title" tw="text-green-600 font-bold text-center">
+                  You are being redirected.
+                </Text>
+              </Stack>
+            </Stack>
+          </Container>
+        ) : items.length === 0 ? (
+          <EmptyCartMessage />
+        ) : (
+          <GridBox
+            gridColumns={{ xs: 1, md: "2fr 1fr" }}
+            rowGap={4}
+            columnGap={2}
+          >
+            <Stack
+              as="form"
+              id="checkout-form"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <GridBox
+                gridColumns={{ xs: 1, mobile: 2 }}
+                rowGap={3}
+                columnGap={1}
+              >
+                <Text variant="title" tw="mobile:col-span-2">
+                  Shipping Details
+                </Text>
+
+                <TextField
+                  label="Name"
+                  errors={errors}
+                  name="name"
+                  register={register}
+                  requireMessage={NAME.REQUIRED}
+                  rules={{
+                    pattern: {
+                      value: NAME.VALID.PATTERN,
+                      message: NAME.VALID.MESSAGE,
+                    },
+                  }}
+                />
+
+                <TextField
+                  label="Contact Number"
+                  errors={errors}
+                  name="contactNumber"
+                  register={register}
+                  requireMessage={CONTACT.REQUIRED}
+                  rules={{
+                    pattern: {
+                      value: CONTACT.VALID.PATTERN,
+                      message: CONTACT.VALID.MESSAGE,
+                    },
+                  }}
+                />
+
+                <TextField
+                  label="Shipping Address"
+                  errors={errors}
+                  name="address"
+                  register={register}
+                  tfCSS={[tw`mobile:col-span-2`]}
+                  requireMessage={ADDRESS.REQUIRED}
+                  rules={{
+                    pattern: {
+                      value: ADDRESS.VALID.PATTERN,
+                      message: ADDRESS.VALID.MESSAGE,
+                    },
+                  }}
+                />
+
+                <TextField
+                  label="City"
+                  errors={errors}
+                  name="city"
+                  register={register}
+                  requireMessage={CITY.REQUIRED}
+                  rules={{
+                    pattern: {
+                      value: CITY.VALID.PATTERN,
+                      message: CITY.VALID.MESSAGE,
+                    },
+                  }}
+                />
+
+                <TextField
+                  label="Zip Code"
+                  errors={errors}
+                  name="zipCode"
+                  register={register}
+                  requireMessage={ZIPCODE.REQUIRED}
+                  rules={{
+                    pattern: {
+                      value: ZIPCODE.VALID.PATTERN,
+                      message: ZIPCODE.VALID.MESSAGE,
+                    },
+                  }}
+                />
+
+                <Text variant="title" tw="mobile:col-span-2">
+                  Payment Info
+                </Text>
+
+                <TextField
+                  label="Card Number"
+                  errors={errors}
+                  name="cardNumber"
+                  register={register}
+                  requireMessage={CARDNUMBER.REQUIRED}
+                  rules={{
+                    pattern: {
+                      value: CARDNUMBER.VALID.PATTERN,
+                      message: CARDNUMBER.VALID.MESSAGE,
+                    },
+                  }}
+                />
+
+                <TextField
+                  label="Card Holder"
+                  errors={errors}
+                  name="cardHolder"
+                  register={register}
+                  requireMessage={CARDHOLDER.REQUIRED}
+                  rules={{
+                    pattern: {
+                      value: CARDHOLDER.VALID.PATTERN,
+                      message: CARDHOLDER.VALID.MESSAGE,
+                    },
+                  }}
+                />
+
+                <TextField
+                  label="Security Code"
+                  errors={errors}
+                  name="securityCode"
+                  register={register}
+                  requireMessage={SECURITYCODE.REQUIRED}
+                  rules={{
+                    pattern: {
+                      value: SECURITYCODE.VALID.PATTERN,
+                      message: SECURITYCODE.VALID.MESSAGE,
+                    },
+                  }}
+                />
+
+                <GridBox gridColumns={2} columnGap={1}>
+                  <TextField
+                    label="Month"
+                    errors={errors}
+                    name="month"
+                    register={register}
+                    requireMessage={MONTH.REQUIRED}
+                    rules={{
+                      pattern: {
+                        value: MONTH.VALID.PATTERN,
+                        message: MONTH.VALID.MESSAGE,
+                      },
+                      validate: (month) => {
+                        if ((month as number) > 12 || (month as number) < 1) {
+                          return "Use numeric (1-12)."
+                        }
+                      },
+                    }}
+                  />
+                  <TextField
+                    label="Year"
+                    errors={errors}
+                    name="year"
+                    register={register}
+                    requireMessage={YEAR.REQUIRED}
+                    rules={{
+                      pattern: {
+                        value: YEAR.VALID.PATTERN,
+                        message: YEAR.VALID.MESSAGE,
+                      },
+                      validate: (year) => {
+                        const month = getValues("month")
+                        const cardExp = new Date(
+                          year as number,
+                          month as number
+                        )
+                        const cardExpTime = cardExp.getTime()
+                        const currentDate = new Date().getTime()
+
+                        if (cardExpTime <= currentDate) {
+                          return "Your card has expired"
+                        }
+
+                        return
+                      },
+                    }}
+                  />
+                  <Text
+                    variant="caption"
+                    tw="font-bold text-primary-dark col-span-2 mt-2"
+                  >
+                    Expiration Date
+                  </Text>
+                </GridBox>
               </GridBox>
-            </GridBox>
-          </Stack>
+            </Stack>
 
-          <Stack rowGap={1} tw="row-start-1 md:row-auto">
-            <Text variant="title">Order Summary</Text>
+            <Stack rowGap={1} tw="row-start-1 md:row-auto">
+              <Text variant="title">Order Summary</Text>
 
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell as="th">Items</TableCell>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell as="th">Items</TableCell>
 
-                  <MiddleCell as="th">Quantity</MiddleCell>
+                    <MiddleCell as="th">Quantity</MiddleCell>
 
-                  <LastCell as="th">Subtotal</LastCell>
-                </TableRow>
-              </TableHead>
+                    <LastCell as="th">Subtotal</LastCell>
+                  </TableRow>
+                </TableHead>
 
-              <TableBody>
-                <TableRow>
-                  <TableCell>Banana</TableCell>
-                  <MiddleCell>2</MiddleCell>
-                  <LastCell>&#8369;200</LastCell>
-                </TableRow>
+                <TableBody>
+                  {items.map(({ product, amount }) => (
+                    <TableRow key={product._id}>
+                      <TableCell tw="capitalize">{product.name}</TableCell>
+                      <MiddleCell>{amount.quantity}</MiddleCell>
+                      <LastCell>&#8369;{amount.subtotal}</LastCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
 
-                <TableRow>
-                  <TableCell>Mango</TableCell>
-                  <MiddleCell>1</MiddleCell>
-                  <LastCell>&#8369;120</LastCell>
-                </TableRow>
-              </TableBody>
+                <TableFooter>
+                  <TableRow>
+                    <TableCell></TableCell>
 
-              <TableFooter>
-                <TableRow>
-                  <TableCell></TableCell>
+                    <MiddleCell as="th">
+                      <Stack>
+                        <Text variant="subtitle">{quantity}</Text>
+                        <Text variant="caption" tw="text-gray-700">
+                          Items
+                        </Text>
+                      </Stack>
+                    </MiddleCell>
 
-                  <MiddleCell as="th">
-                    <Stack>
-                      <Text variant="subtitle">3</Text>
-                      <Text variant="caption" tw="text-gray-700">
-                        Items
-                      </Text>
-                    </Stack>
-                  </MiddleCell>
+                    <LastCell as="th">
+                      <Stack>
+                        <Text variant="subtitle">&#8369;{total}</Text>
+                        <Text variant="caption" tw="text-gray-700">
+                          Total
+                        </Text>
+                      </Stack>
+                    </LastCell>
+                  </TableRow>
+                </TableFooter>
+              </Table>
 
-                  <LastCell as="th">
-                    <Stack>
-                      <Text variant="subtitle">&#8369;320</Text>
-                      <Text variant="caption" tw="text-gray-700">
-                        Total
-                      </Text>
-                    </Stack>
-                  </LastCell>
-                </TableRow>
-              </TableFooter>
-            </Table>
+              <Button
+                form="checkout-form"
+                tw="mt-4 disabled:bg-gray-500"
+                disabled={result.isLoading}
+              >
+                {result.isLoading ? (
+                  <CircularProgress width={3} height={3} />
+                ) : (
+                  "Purchase"
+                )}
+              </Button>
+            </Stack>
 
-            <Button form="checkout-form" tw="mt-4">
-              Purchase
-            </Button>
-          </Stack>
-
-          <Stack tw="md:col-span-2" alignItems="start">
-            <ButtonLink href="/cart" color="warning">
-              Back to cart
-            </ButtonLink>
-          </Stack>
-        </GridBox>
+            <Stack tw="" alignItems="start">
+              <ButtonLink href="/cart" color="warning">
+                Back to cart
+              </ButtonLink>
+            </Stack>
+          </GridBox>
+        )}
       </Container>
     </Layout>
   )
 }
-
-export default Checkout

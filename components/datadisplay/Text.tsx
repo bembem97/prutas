@@ -13,9 +13,9 @@ const options = {
     isPropValid(prop) && prop !== "color" && prop !== "as" && prop !== "align",
 }
 
-const styles = ({ color, variant, align }: TextProps) => [
+const styles = ({ color, variant = "paragraph", align }: TextProps) => [
   //todo: DEFAULTS
-  tw`text-base font-sans`,
+  tw`font-sans`,
 
   //todo: PROPS
   variant === "large" && tw`text-4xl md:text-5xl lg:text-6xl`,

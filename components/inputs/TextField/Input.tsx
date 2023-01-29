@@ -12,8 +12,8 @@ const options = {
 
 const styles = ({ fullWidth }: InputProps) => [
   //todo: DEFAULTS
-  tw`outline-none p-1 py-2 bg-transparent transition-colors`,
-  tw`border-b-2 border-b-gray-400 rounded-tl rounded-tr focus:bg-gray-50 invalid:border-b-error focus:border-b-primary`,
+  tw`outline-none p-1 py-2 bg-transparent transition-colors w-full`,
+  tw`rounded-tl rounded-tr invalid:border-b-error`,
 
   //todo: PROPS
   fullWidth && tw`w-full`,

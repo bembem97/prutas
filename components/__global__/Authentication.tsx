@@ -1,25 +1,45 @@
 import Text from "components/datadisplay/Text"
+import Close from "components/icons/Close"
 import Google from "components/icons/Google"
 import LockIcon from "components/icons/Lock"
 import UserIcon from "components/icons/User"
 import Button from "components/inputs/Button"
 import TextField from "components/inputs/TextField"
 import Container from "components/layouts/Container"
+import GridBox from "components/layouts/GridBox"
 import Stack from "components/layouts/Stack"
 import Link from "components/navigations/Link"
-import Layout from "components/__global__/Layout"
+import { Portal } from "components/utils/Portal"
 import StartIcon from "components/__other__/StartIcon"
-import React from "react"
+import React, { Dispatch, SetStateAction } from "react"
 import tw from "twin.macro"
 
-const SignIn: React.FC = () => {
+interface Props {
+  isOpen: boolean
+  setIsOpen: Dispatch<SetStateAction<boolean | null>>
+  authRef?: React.MutableRefObject<null>
+}
+
+const Authentication: React.FC<Props> = ({ authRef, isOpen, setIsOpen }) => {
   return (
-    <Layout title="Sign In">
-      <Container maxWidth="lg">
+    <Portal open={isOpen}>
+      <GridBox tw="place-items-center fixed inset-0 bg-black/40 z-20">
         <Container
-          maxWidth="sm"
-          css={[tw`mt-4 bg-white rounded shadow-md p-8`]}
+          ref={authRef}
+          maxWidth="mobile"
+          css={[
+            tw`mt-4 bg-white rounded shadow-md p-8 relative`,
+            isOpen && tw`animate-fade-in`,
+          ]}
         >
+          <Button
+            buttonType="icon"
+            tw="absolute top-1 right-1"
+            color="error"
+            onClick={() => setIsOpen(false)}
+          >
+            <Close width={3} height={3} fill="white" />
+          </Button>
           {/* //todo: SIGNIN WITH CREDENTIALS */}
           <Text variant="header" align="center" tw="mb-10">
             Sign In
@@ -54,9 +74,9 @@ const SignIn: React.FC = () => {
             </Stack>
           </Stack>
         </Container>
-      </Container>
-    </Layout>
+      </GridBox>
+    </Portal>
   )
 }
 
-export default SignIn
+export default Authentication

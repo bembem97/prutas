@@ -7,6 +7,7 @@ import TableRow from "components/datadisplay/TableRow"
 import Text from "components/datadisplay/Text"
 import Container from "components/layouts/Container"
 import Stack from "components/layouts/Stack"
+import { LastCell, MiddleCell } from "pages/cart"
 import React from "react"
 import tw from "twin.macro"
 
@@ -58,8 +59,8 @@ const OrderDetails = () => {
             <TableRow>
               <TableCell as="th">Product</TableCell>
               <TableCell as="th">Price</TableCell>
-              <TableCell as="th">Quantity</TableCell>
-              <TableCell as="th">Subtotal</TableCell>
+              <MiddleCell as="th">Quantity</MiddleCell>
+              <LastCell as="th">Subtotal</LastCell>
             </TableRow>
           </TableHead>
 
@@ -67,8 +68,8 @@ const OrderDetails = () => {
             <TableRow>
               <TableCell>Banana</TableCell>
               <TableCell>100</TableCell>
-              <TableCell>2</TableCell>
-              <TableCell>200</TableCell>
+              <MiddleCell>2</MiddleCell>
+              <LastCell>200</LastCell>
             </TableRow>
           </TableBody>
 
@@ -76,22 +77,22 @@ const OrderDetails = () => {
             <TableRow>
               <TableCell as="th"></TableCell>
               <TableCell as="th"></TableCell>
-              <TableCell as="th">
+              <MiddleCell as="th">
                 <Stack>
                   <Text variant="subtitle">2</Text>
                   <Text variant="caption" tw="text-gray-700">
                     Items
                   </Text>
                 </Stack>
-              </TableCell>
-              <TableCell as="th">
+              </MiddleCell>
+              <LastCell as="th">
                 <Stack>
                   <Text variant="subtitle">&#8369;200</Text>
                   <Text variant="caption" tw="text-gray-700">
                     Total
                   </Text>
                 </Stack>
-              </TableCell>
+              </LastCell>
             </TableRow>
           </TableFooter>
         </Table>

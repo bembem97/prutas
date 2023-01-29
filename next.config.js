@@ -1,3 +1,5 @@
+// @ts-check
+
 const withTwin = require("./withTwin.js")
 
 /**

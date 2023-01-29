@@ -32,8 +32,8 @@ module.exports = {
         "warning-darker": color.amber[900],
       },
       animation: {
-        "fade-in": "fade-in 150ms forwards",
-        "fade-out": "fade-out 150ms forwards",
+        "fade-in": "fade-in 350ms forwards",
+        "fade-out": "fade-out 350ms forwards",
       },
       keyframes: {
         "fade-in": {
@@ -51,7 +51,7 @@ module.exports = {
         mobile: "412px",
         md: "640px",
         tab: "768px",
-        lg: "992px",
+        lg: "900px",
         xl: "1024px",
         laptop: "1280px",
       },

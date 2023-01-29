@@ -1,0 +1,382 @@
+[
+  {
+    "name": "sweetsop",
+    "variety": "thai lessard",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEUWw-6YhtNSXiUwq4t7Odwlz4nR_tqOLqH6ULyhX-xbLm0oqJa8eSp8xjNdhhYRSYqdbohTsnsxjubR9qnjswfNWqQr0nMaU0O6OYzQRF49gQMzeqhBwGC7mPCGcYZa1lxeFAUTsOM2DhUXf-gPGm4k=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 120,
+    "nutritions": {
+      "calories": 94,
+      "fat": { "total": 0.3, "saturatedFat": 0.45 },
+      "fiber": 0,
+      "protein": 2.1,
+      "carbohydrate": { "total": 24, "dietaryFiber": 4.4, "sugar": 1 },
+      "vitaminC": 36.3,
+      "iron": 0.6,
+      "calcium": 24,
+      "vitaminB6": 0.2,
+      "magnesium": 21
+    }
+  },
+  {
+    "name": "guava",
+    "variety": "psidium guajava",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEWE9xF9SIfIp8_3wLp8_YrPzH6xdPElU2_srn5mJlyDR947jMCKW5XDdv2IPL0zxuLkx6zn372KpNKvm5g89RSpZBVbgrV3TwaXYj-vdb6GMnRw6PKuA9G8oADewEbMSTIjVZcgXfYC_C-G4QyReQHL=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 140,
+    "nutritions": {
+      "calories": 68,
+      "fat": { "total": 1, "saturatedFat": 0 },
+      "fiber": 0,
+      "protein": 2.6,
+      "carbohydrate": { "total": 14, "dietaryFiber": 5, "sugar": 9 },
+      "vitaminC": 228.3,
+      "iron": 0.3,
+      "calcium": 18,
+      "vitaminB6": 0.1,
+      "magnesium": 22
+    }
+  },
+  {
+    "name": "star fruit",
+    "variety": "averrhoa carambola",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEVCP977nEE4k0qapvMWeWpUd21a8M6TQMdxYcLozoWZjt4q7rTHcQgl-aKHxfPIP4xdRP5m-V0w7QC6pVxVZmcCQo89kEfEK0psTxuoqkENGFMaHmnu0dqhsRSerxTUOD-eOB9OA4IcehDhwzObN8Jn=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 71,
+    "nutritions": {
+      "calories": 41,
+      "fat": { "total": 0.4, "saturatedFat": 0 },
+      "fiber": 0,
+      "protein": 1.4,
+      "carbohydrate": { "total": 9.9, "dietaryFiber": 2.8, "sugar": 4 },
+      "vitaminC": 46,
+      "iron": 0.4,
+      "calcium": 15,
+      "vitaminB6": 0.1,
+      "magnesium": 20
+    }
+  },
+  {
+    "name": "durian",
+    "variety": "arancillo",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEXxFaMPJO91VHhxnxeIKmBLHOTnJWwOb3DNg-Zf8wgyEAL0o0TbN1rW1xd5iJ7B_hhOVOnfFchuEsFE-kcqbQTO7g5z0fuJGCDV797lNwuYwrBmCR3e3xgtmpYRTle1Kz9Jinq6n7Q1DYMMIslBBfMi=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 380,
+    "nutritions": {
+      "calories": 357,
+      "fat": { "total": 13, "saturatedFat": 0 },
+      "fiber": 9,
+      "protein": 4,
+      "carbohydrate": { "total": 66, "dietaryFiber": 24.7, "sugar": 19.97 },
+      "vitaminC": 1,
+      "iron": 0.4,
+      "calcium": 15,
+      "vitaminB6": 0.1,
+      "magnesium": 20
+    }
+  },
+  {
+    "name": "grapes",
+    "variety": "seedless grapes",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEVN0gTA5zxXfiueR3douBA8Sb0YDcTLsIA9TjHdlQZ1dhW06bIDXHlyxvZqCXFlVYc7zlfQq9e8KfHANaDnZcZfEXEf2EtLYhvZxvVfG2HuKfPeoeYwJ-f67L8MeWIt4OWposU0NjbagT-KrfHdy8wM=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 270,
+    "nutritions": {
+      "calories": 299,
+      "fat": { "total": 0.5, "saturatedFat": 0.041 },
+      "fiber": 1.4,
+      "protein": 1.09,
+      "carbohydrate": { "total": 79, "dietaryFiber": 3.7, "sugar": 59 },
+      "vitaminC": 4,
+      "iron": 0.3,
+      "calcium": 14,
+      "vitaminB6": 0.1,
+      "magnesium": 5
+    }
+  },
+  {
+    "name": "soursop",
+    "variety": "aguinaldo",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEXJHcHDOtay6CNfx8a4jqBaLXe79xYJQlGWtXTLhRdbOL0e5X7V7S2RO02H8BreOEeWUK4A2a6xK8dkEc1rbpzeIaBHaEUrfljmratmBLZvfBAhigB9ZQk3TvssRA5YYPWUMms6iEzkCSld1IxkOf3R=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 150,
+    "nutritions": {
+      "calories": 66,
+      "fat": { "total": 0.3, "saturatedFat": 0.1 },
+      "fiber": 3.3,
+      "protein": 1,
+      "carbohydrate": { "total": 17, "dietaryFiber": 3.3, "sugar": 23.37 },
+      "vitaminC": 20.6,
+      "iron": 0.6,
+      "calcium": 14,
+      "vitaminB6": 0.1,
+      "magnesium": 21
+    }
+  },
+  {
+    "name": "mango",
+    "variety": "katchamita",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEVSAFPs0skakLGnVnB_oeYKpnKcBX1_qRQQAzV3Jtw2FbQxVnMu3cYP_3BXwiN268d9uBehLJnoUCdyYaOQldLvoi9djY6rxdYviuOHeudD2K4Fkhh9RUWH-rG_RQqvJH7SL75uIXRpgwB4SGHhIGkw=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 105,
+    "nutritions": {
+      "calories": 60,
+      "fat": { "total": 0.4, "saturatedFat": 0.3 },
+      "fiber": 1.4,
+      "protein": 0.8,
+      "carbohydrate": { "total": 23.33, "dietaryFiber": 1.6, "sugar": 23.37 },
+      "vitaminC": 25,
+      "iron": 0.4,
+      "calcium": 15,
+      "vitaminB6": 0.1,
+      "magnesium": 20
+    }
+  },
+  {
+    "name": "mangosteen",
+    "variety": "garcinia mangostana",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEUMbAKZeCbhB1O69NLSRCtPIaH4DRqECdmnaV2eTmk0Rczq7Qkb43mhvWzwrGTqIKue4b2djN-zQwVTag5yQ-Q5Lb9GuuaAsv_IZsIz-uHLCFevst87_t236u1qUgdc_Xopb47LdeveucwH1VXDSqeU=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 230,
+    "nutritions": {
+      "calories": 143,
+      "fat": { "total": 1, "saturatedFat": 0 },
+      "fiber": 3.5,
+      "protein": 1,
+      "carbohydrate": { "total": 35, "dietaryFiber": 3.53, "sugar": 23.37 },
+      "vitaminC": 8,
+      "iron": 0.4,
+      "calcium": 15,
+      "vitaminB6": 0.1,
+      "magnesium": 20
+    }
+  },
+  {
+    "name": "apple",
+    "variety": "gala",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEV7-VRKB9RoKe9cnLUCU7tFevXBzOcuJibpssiZ-fPP6PPVIojjuSXZdNoIF5tfRBiDrpFF2ef3W2ShY4e9XJ9tlSjOECZJF08FoW3zqQjIdcs1BFU4h71LK7ZZJaA50WU7ky-gQeMP97eIYQ-uEfal=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 173,
+    "nutritions": {
+      "calories": 52,
+      "fat": { "total": 0.2, "saturatedFat": 0 },
+      "fiber": 2.4,
+      "protein": 0.3,
+      "carbohydrate": { "total": 14, "dietaryFiber": 2.4, "sugar": 10 },
+      "vitaminC": 4.6,
+      "iron": 0.1,
+      "calcium": 6,
+      "vitaminB6": 0,
+      "magnesium": 5
+    }
+  },
+  {
+    "name": "watermelon",
+    "variety": "crimson sweet",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEVZPXTUzO46oFTKwvo1DMWqONIORJ9TLHOgvYv42rwxaCF50LdUs-FvOzgzYBrcj9tgeIOag78Jk73W3qkWAYN0M0lvGrtEZTOhIDg7tjGcYzjLiKqkeMoewIzMUQZHRtS6a9xTf6orXejMA7sV_No3=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 212,
+    "nutritions": {
+      "calories": 30,
+      "fat": { "total": 0.2, "saturatedFat": 0 },
+      "fiber": 0.4,
+      "protein": 0.6,
+      "carbohydrate": { "total": 8, "dietaryFiber": 0.4, "sugar": 6 },
+      "vitaminC": 11,
+      "iron": 0.4,
+      "calcium": 15,
+      "vitaminB6": 0.1,
+      "magnesium": 20
+    }
+  },
+  {
+    "name": "pineapple",
+    "variety": "sarawak",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEWMmi8UF2h0wbzBJB8Rs1XJiLgTjHVTcxz5oPGYY2NY8JeujNAy_3o9PNgHDeZ5sbnoXx0ecUTx_ye4bJXpkrPTlbs7kKNlBTyfKfx_zVbiIfU1suCJeNGxHyi6rFELRi_yndDOGOWiweboIBnh5ega=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 130,
+    "nutritions": {
+      "calories": 50,
+      "fat": { "total": 0.1, "saturatedFat": 0 },
+      "fiber": 2.3,
+      "protein": 0.5,
+      "carbohydrate": { "total": 13, "dietaryFiber": 1.4, "sugar": 10 },
+      "vitaminC": 47.8,
+      "iron": 0.3,
+      "calcium": 13,
+      "vitaminB6": 0.1,
+      "magnesium": 12
+    }
+  },
+  {
+    "name": "dragon fruit",
+    "variety": "hylocereus undatus",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEULhCzN2J_G6BqlwUw5HvdZ3L1SFjSKfuic1lJGJHXqR81Mo5A2HPug9JWaC6Ko51S6XWidjoxUtySGE3GWqT9yiUFM-XRe0JAqUW2L8VXj2zR3MUJpqzRcMiPBIoD5l_EEVdG9gnA7E5UUF7IquN_z=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 120,
+    "nutritions": {
+      "calories": 60,
+      "fat": { "total": 0, "saturatedFat": 0 },
+      "fiber": 3,
+      "protein": 1.2,
+      "carbohydrate": { "total": 13, "dietaryFiber": 1.8, "sugar": 13 },
+      "vitaminC": 5,
+      "iron": 0.4,
+      "calcium": 15,
+      "vitaminB6": 0.1,
+      "magnesium": 25
+    }
+  },
+  {
+    "name": "papaya",
+    "variety": "red royale",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEUP2LgHg8pjI-HCQzVF5zncn5cqeIIPkdrBhhqryPGbWZtVoFvAuZ6EnOoxoJsM4-ku5qha9ru5r24Ho_2pzE36tCpBDpNwP2msCqYDhOJ8W0xuDlPiIKmETENlEnAUXXCAdYT54x99bXFUu--bTTMW=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 120,
+    "nutritions": {
+      "calories": 62,
+      "fat": { "total": 0.4, "saturatedFat": 0 },
+      "fiber": 2.5,
+      "protein": 1.3,
+      "carbohydrate": { "total": 16, "dietaryFiber": 4.7, "sugar": 11 },
+      "vitaminC": 157,
+      "iron": 0.4,
+      "calcium": 15,
+      "vitaminB6": 0.1,
+      "magnesium": 20
+    }
+  },
+  {
+    "name": "coconut",
+    "variety": "dwarf coconut",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEXkJk1FDXdkg9xWNhdDHGCoC5YwJWDpmCytpYMCW3O4HK9nUNlWIgiLK1ost-JO08xmA2QqSYxmnjgwErsnHiz7GTUHI88iMnl2rHMLxj787ijLt7lCaYuw88httB-qENYtmCfJBj2iU3MqZYnQRfVW=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 100,
+    "nutritions": {
+      "calories": 283,
+      "fat": { "total": 27, "saturatedFat": 11.2 },
+      "fiber": 7,
+      "protein": 3,
+      "carbohydrate": { "total": 6.8, "dietaryFiber": 9, "sugar": 2.8 },
+      "vitaminC": 3.3,
+      "iron": 2.4,
+      "calcium": 14,
+      "vitaminB6": 0.1,
+      "magnesium": 32
+    }
+  },
+  {
+    "name": "marang",
+    "variety": "evergreen",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEV42Cq6OmbC9vjza0pi1n8vE9Sqb03eTcpoWgVZVNhVhmIGC9h22I6C-19nORwykdBMZixJDSklk8Y8i0XxAPHDwbc8JJRS0Yo2zSIXNRAfUQ2t2kuWQ6fJ63w40L6klHMvVvXhwLTyNYdR8vjQSxOH=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 120,
+    "nutritions": {
+      "calories": 265,
+      "fat": { "total": 3, "saturatedFat": 0 },
+      "fiber": 1.4,
+      "protein": 1.7,
+      "carbohydrate": { "total": 32.4, "dietaryFiber": 0.7, "sugar": 23.37 },
+      "vitaminC": 26,
+      "iron": 0.4,
+      "calcium": 15,
+      "vitaminB6": 0.1,
+      "magnesium": 20
+    }
+  },
+  {
+    "name": "jackfruit",
+    "variety": "sinaba",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEVPMgtVxAoeykOYuXm3Tg9cucHWfC7mutplfg28VvAkw2Sjv5VygW2-j2D49lUR7bI9CmtOSnl2T9w-N_7qmSguMifz0wknL4gxE0gXw0LUlwgCzSjRNM91KVxVhrcxFxNDWeiykYZeFD_hIyQcf8S9=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 100,
+    "nutritions": {
+      "calories": 155,
+      "fat": { "total": 0.5, "saturatedFat": 0.3 },
+      "fiber": 2.5,
+      "protein": 2.4,
+      "carbohydrate": { "total": 38, "dietaryFiber": 2.5, "sugar": 31.48 },
+      "vitaminC": 26,
+      "iron": 0.4,
+      "calcium": 15,
+      "vitaminB6": 0.1,
+      "magnesium": 20
+    }
+  },
+  {
+    "name": "spanish plum",
+    "variety": "siniguelas",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEU5NoPivl2ywWacxGcbZwhe0z1vKc4C34zKIC-J85wuq-N0MbDLcHGDFwxAXVCTq1l8eP1oiZAjeaDmhLe0Z9b6EqVEtdm_brVsMh3O0xHRyfyxZKJ_RcBpcAWTq07xNiTYJMY_HbOcqvmiBULJiWbY=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 130,
+    "nutritions": {
+      "calories": 30,
+      "fat": { "total": 0.17, "saturatedFat": 0 },
+      "fiber": 1,
+      "protein": 0.26,
+      "carbohydrate": { "total": 8, "dietaryFiber": 1, "sugar": 7 },
+      "vitaminC": 53,
+      "iron": 0.4,
+      "calcium": 15,
+      "vitaminB6": 0.1,
+      "magnesium": 20
+    }
+  },
+  {
+    "name": "banana",
+    "variety": "latundan",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEWvIKjOmB4AdiTNt4qJ392KRxj8unNHQaLdhefykXA3f-9heBmxZCGQZgtF0h_dbCPrAOO2mSPTXqDJ5tIfdfUsTWXeK4fFWRxLBMkBn8yGdOuk_-IUnx47390cdoDfnByE2SeftVojxU1DaR3f1C7k=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 90,
+    "nutritions": {
+      "calories": 89,
+      "fat": { "total": 0.3, "saturatedFat": 0.1 },
+      "fiber": 3,
+      "protein": 1.1,
+      "carbohydrate": { "total": 23, "dietaryFiber": 2.6, "sugar": 12 },
+      "vitaminC": 8.7,
+      "iron": 0.3,
+      "calcium": 5,
+      "vitaminB6": 0.4,
+      "magnesium": 27
+    }
+  },
+  {
+    "name": "santol",
+    "variety": "s. koetjape",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEWRaxfSC1oqSGx9DF1EKKzWzU84hO0NZULcX5n1TB75c_7Jq-sMImnY5ite10PfZNzog0DVCAU5dm760BO8_dqwjDEo3zdPiR6gj6-bnK4ZGfd7Xj7fviDWRcoedTb47n0FgSFszJ9QxFuw4lSVSUaq=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 150,
+    "nutritions": {
+      "calories": 155,
+      "fat": { "total": 1, "saturatedFat": 0 },
+      "fiber": 2.5,
+      "protein": 1,
+      "carbohydrate": { "total": 26, "dietaryFiber": 13, "sugar": 0 },
+      "vitaminC": 48,
+      "iron": 0.4,
+      "calcium": 15,
+      "vitaminB6": 0.1,
+      "magnesium": 20
+    }
+  },
+  {
+    "name": "rambutan",
+    "variety": "maharlika",
+    "imageUrl": "https://lh3.googleusercontent.com/pw/AL9nZEUfm2t-dW5zKa5GBD6m-6rfTaTZ-Re9ubAMmodsJCtXRc1L1lBnyb9MtPnpPBkW7NBbnKNoU51QFFZnro1AtEZFq3x1kf4bckHnvjQp-0T2E9MNxxE3SsdTImy17lflON3rqp1U5aEPRuKQWj1NzJLg=s500-no?authuser=0",
+    "category": "fruit",
+    "price": 120,
+    "nutritions": {
+      "calories": 175,
+      "fat": { "total": 0, "saturatedFat": 0 },
+      "fiber": 0.9,
+      "protein": 1,
+      "carbohydrate": { "total": 2, "dietaryFiber": 2, "sugar": 0.9 },
+      "vitaminC": 32,
+      "iron": 0.4,
+      "calcium": 15,
+      "vitaminB6": 0.1,
+      "magnesium": 20
+    }
+  }
+]
