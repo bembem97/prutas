@@ -3,27 +3,52 @@ import Container from "components/layouts/Container"
 import GridBox from "components/layouts/GridBox"
 import Stack from "components/layouts/Stack"
 import { Portal } from "components/utils/Portal"
-import React, { useRef } from "react"
+import React, { useRef, useEffect } from "react"
 import useToggle from "src/hooks/useToggle"
 import tw from "twin.macro"
 import OrderDetails from "./OrderDetails"
+import useCountdown from "src/hooks/useCountdown"
+import { useUpdateStatusMutation } from "src/redux/slices/orderDetails"
 
 interface Props {
-  status: string
+  id: string
+  status: number
+  dateOrdered: Date
 }
 
-const StatusButton = ({ status }: Props) => {
+const statusColor = [
+  { color: "error", label: "On Going" },
+  { color: "warning", label: "Ready" },
+  { color: "primary", label: "Claimed" },
+]
+
+const StatusButton = ({ id, status, dateOrdered }: Props) => {
   const ref = useRef(null)
   const { isOpen, setIsOpen } = useToggle(ref)
+  const [updateStatus, { isLoading: isUpdating }] = useUpdateStatusMutation()
 
-  const onGoing = status === "on going"
-  const ready = status === "ready"
-  const STATUS = onGoing ? "error" : ready ? "warning" : "primary"
+  const extendTime = 1 * 1 * 1 * 30 * 1000
+
+  const deliveryTime = new Date(dateOrdered).getTime() + extendTime
+  const { days, hours, minutes, seconds } = useCountdown(deliveryTime)
+
+  const countdown = days + hours + minutes + seconds
+  const isReadyToClaim = timer(countdown, { status, current: 0 })
+
+  useEffect(() => {
+    if (isReadyToClaim) {
+      updateStatus({ id, status: 1 })
+    }
+  }, [isReadyToClaim, updateStatus, id])
 
   return (
     <Stack>
-      <Button fullWidth color={STATUS} onClick={() => setIsOpen(true)}>
-        {status}
+      <Button
+        fullWidth
+        onClick={() => setIsOpen(true)}
+        color={statusColor[status].color}
+      >
+        {statusColor[status].label}
       </Button>
 
       <Portal open={isOpen}>
@@ -39,7 +64,7 @@ const StatusButton = ({ status }: Props) => {
               isOpen === false && tw`animate-fade-out`,
             ]}
           >
-            <OrderDetails />
+            <OrderDetails extendTime={extendTime} />
             <Button color="error" onClick={() => setIsOpen(false)}>
               Close Modal
             </Button>
@@ -52,20 +77,14 @@ const StatusButton = ({ status }: Props) => {
 
 export default StatusButton
 
-// interface PortalProps {
-//   children: ReactNode
-//   isOpen: boolean | null
-// }
-
-// export function Portal({ children, isOpen }: PortalProps) {
-//   const ref = useRef<Element | null>(null)
-//   const [mounted, setMounted] = useState<boolean | null>(null)
-
-//   useEffect(() => {
-//     ref.current = document.querySelector<HTMLElement>("#box")
-//     // setMounted(isOpen === null ? false : true)
-//     setMounted(isOpen)
-//   }, [isOpen, mounted])
-
-//   return mounted && ref.current ? createPortal(children, ref.current) : null
-// }
+// todo: TIMER FUNCTION
+interface TimerTypes {
+  current: number
+  status: number
+}
+export function timer(
+  countdown: number,
+  { current, status }: TimerTypes
+): boolean {
+  return countdown <= 0 && status === current
+}

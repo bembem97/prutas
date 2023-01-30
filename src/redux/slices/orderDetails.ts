@@ -4,11 +4,11 @@ import { OrderDetailsTypes } from "src/models/OrderDetails"
 export const orderDetailsApi = createApi({
   reducerPath: "orderDetailsApi",
   baseQuery: fetchBaseQuery({ baseUrl: process.env.BASEURL_QUERY }),
-  tagTypes: ["addOrder"],
+  tagTypes: ["addOrder", "status"],
   endpoints: (builder) => ({
     getOrders: builder.query<{ result: OrderDetailsTypes[] }, void>({
       query: () => "/api/orderDetails",
-      providesTags: ["addOrder"],
+      providesTags: ["addOrder", "status"],
     }),
 
     addOrder: builder.mutation({
@@ -23,7 +23,24 @@ export const orderDetailsApi = createApi({
       }),
       invalidatesTags: ["addOrder"],
     }),
+
+    updateStatus: builder.mutation({
+      query: (data) => ({
+        url: `/api/orderDetails`,
+        method: "PATCH",
+        body: data,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }),
+      invalidatesTags: ["status"],
+    }),
   }),
 })
 
-export const { useGetOrdersQuery, useAddOrderMutation } = orderDetailsApi
+export const {
+  useGetOrdersQuery,
+  useAddOrderMutation,
+  useUpdateStatusMutation,
+} = orderDetailsApi

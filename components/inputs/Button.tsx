@@ -2,7 +2,7 @@ import tw, { styled, css, theme } from "twin.macro"
 import isPropValid from "@emotion/is-prop-valid"
 
 interface ButtonProps {
-  color?: "error" | "warning" | "primary"
+  color?: "error" | "warning" | "primary" | string
   buttonType?: "button" | "icon" | "text"
   fullWidth?: boolean
 }

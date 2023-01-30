@@ -1,13 +1,13 @@
 import mongoose from "mongoose"
 const { Schema, models, model, Types } = mongoose
 
-type OrderType = {
-  name: String
+type CustomerType = {
+  name: string
   contactNumber: number
   address: {
-    street: String
-    city: String
-    zipCode: String
+    street: string
+    city: string
+    zipCode: string
   }
 }
 
@@ -18,12 +18,18 @@ type CardType = {
   expirationDate: Date
 }
 
-type ItemsType = {
+export interface ProductType {
+  _id?: string
+  name: string
+  price: number
+}
+
+export type ItemsType = {
   quantity: number
   total: number
   products: Array<{
     _id: boolean
-    product: string
+    product: string | ProductType
     amount: {
       subtotal: number
       quantity: number
@@ -34,7 +40,7 @@ type ItemsType = {
 export interface OrderDetailsTypes {
   _id: string
   status: number
-  order: OrderType
+  customer: CustomerType
   card: CardType
   items: ItemsType
   createdAt: Date
@@ -46,7 +52,7 @@ const OrderDetailsSchema = new Schema<OrderDetailsTypes>(
       type: Number,
       default: 0,
     },
-    order: {
+    customer: {
       name: String,
       contactNumber: Number,
       address: {

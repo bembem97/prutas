@@ -10,9 +10,13 @@ import Link from "components/navigations/Link"
 import Layout from "components/__global__/Layout"
 import StartIcon from "components/__other__/StartIcon"
 import React from "react"
+import { useForm } from "react-hook-form"
 import tw from "twin.macro"
 
-const SignIn: React.FC = () => {
+export default function SignIn() {
+  const {
+    formState: { errors },
+  } = useForm()
   return (
     <Layout title="Sign In">
       <Container maxWidth="lg">
@@ -26,9 +30,14 @@ const SignIn: React.FC = () => {
           </Text>
 
           <Stack as="form" rowGap={3} tw="mb-8">
-            <TextField label="Username" startIcon={UserIcon} />
+            <TextField label="Username" startIcon={UserIcon} errors={errors} />
 
-            <TextField label="Password" type="password" startIcon={LockIcon} />
+            <TextField
+              label="Password"
+              type="password"
+              startIcon={LockIcon}
+              errors={errors}
+            />
 
             <Button>Sign In</Button>
           </Stack>
@@ -58,5 +67,3 @@ const SignIn: React.FC = () => {
     </Layout>
   )
 }
-
-export default SignIn

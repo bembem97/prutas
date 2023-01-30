@@ -12,6 +12,7 @@ import Link from "components/navigations/Link"
 import { Portal } from "components/utils/Portal"
 import StartIcon from "components/__other__/StartIcon"
 import React, { Dispatch, SetStateAction } from "react"
+import { useForm } from "react-hook-form"
 import tw from "twin.macro"
 
 interface Props {
@@ -21,6 +22,9 @@ interface Props {
 }
 
 const Authentication: React.FC<Props> = ({ authRef, isOpen, setIsOpen }) => {
+  const {
+    formState: { errors },
+  } = useForm()
   return (
     <Portal open={isOpen}>
       <GridBox tw="place-items-center fixed inset-0 bg-black/40 z-20">
@@ -46,9 +50,14 @@ const Authentication: React.FC<Props> = ({ authRef, isOpen, setIsOpen }) => {
           </Text>
 
           <Stack as="form" rowGap={3} tw="mb-8">
-            <TextField label="Username" startIcon={UserIcon} />
+            <TextField label="Username" startIcon={UserIcon} errors={errors} />
 
-            <TextField label="Password" type="password" startIcon={LockIcon} />
+            <TextField
+              label="Password"
+              type="password"
+              startIcon={LockIcon}
+              errors={errors}
+            />
 
             <Button>Sign In</Button>
           </Stack>

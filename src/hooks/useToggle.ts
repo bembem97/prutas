@@ -5,11 +5,11 @@ const useToggle = (ref: MutableRefObject<HTMLElement | null> | null) => {
   const endAnimation = () => setIsOpen(null)
   const target = ref?.current
 
-  if (isOpen === false) {
-    target?.addEventListener("animationend", endAnimation)
-  }
-
   useEffect(() => {
+    if (isOpen === false) {
+      target?.addEventListener("animationend", endAnimation)
+    }
+
     const onKeydownHandler = ({ key }: KeyboardEvent) => {
       if (key == "Escape" && isOpen === true) {
         setIsOpen(false)

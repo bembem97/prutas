@@ -1,4 +1,3 @@
-
 import Table from "components/datadisplay/Table"
 import TableBody from "components/datadisplay/TableBody"
 import TableCell from "components/datadisplay/TableCell"
@@ -14,19 +13,21 @@ import Link from "components/navigations/Link"
 import Layout from "components/__global__/Layout"
 import StatusButton from "components/__global__/orders/StatusButton"
 import React from "react"
+import useGetDate from "src/hooks/useGetDate"
 import { useGetOrdersQuery } from "src/redux/slices/orderDetails"
-import tw, {  styled } from "twin.macro"
+import tw, { styled } from "twin.macro"
+import { OrderDetailsTypes } from "src/models/OrderDetails"
 
 const ButtonLink = Button.withComponent(Link)
 
 const CustomerCell = styled(TableCell)(() => tw`w-[min(100%,200px)]`)
 const StatusCell = styled(TableCell)(() => tw`text-center w-40`)
 
-
+export const OrderDetailsContext =
+  React.createContext<OrderDetailsTypes | null>(null)
 
 export default function Orders() {
   const { isLoading, data: orderDetails } = useGetOrdersQuery()
-
 
   return (
     <Layout title="Order">
@@ -39,7 +40,7 @@ export default function Orders() {
           ) : orderDetails?.result.length === 0 ? (
             <>
               <Text variant="title" color="error">
-                You never ordered anything yet.
+                {"You haven't ordered anything yet."}
               </Text>
               <ButtonLink href="/" color="error">
                 Continue Shopping
@@ -58,16 +59,14 @@ export default function Orders() {
 
               <TableBody>
                 {orderDetails?.result.map((detail) => (
-                  <TableRow key={detail._id}>
-                    <TableCell tw="text-xs font-mono">{detail._id}</TableCell>
-                    <CustomerCell>{detail.order.name}</CustomerCell>
-                    <TableCell>
-                      {new Date(detail.createdAt).getDate()}
-                    </TableCell>
-                    <StatusCell>
-                      <StatusButton status="on going" />
-                    </StatusCell>
-                  </TableRow>
+                  <OrderedList
+                    key={detail._id}
+                    id={detail._id}
+                    customer={detail.customer.name}
+                    dateOrdered={detail.createdAt}
+                    status={detail.status}
+                    detail={detail}
+                  />
                 ))}
               </TableBody>
 
@@ -77,5 +76,39 @@ export default function Orders() {
         </Stack>
       </Container>
     </Layout>
+  )
+}
+
+// todo: LIST OF ORDERED ITEMS
+interface OrderedTypes {
+  id: string
+  customer: string
+  dateOrdered: Date
+  status: number
+  detail: OrderDetailsTypes
+}
+
+function OrderedList({
+  id,
+  customer,
+  dateOrdered,
+  status,
+  detail,
+}: OrderedTypes) {
+  const { year, month, day } = useGetDate(dateOrdered)
+
+  return (
+    <TableRow key={id}>
+      <TableCell tw="text-xs font-mono">{id}</TableCell>
+      <CustomerCell>{customer}</CustomerCell>
+      <TableCell>
+        {month} {day}, {year}
+      </TableCell>
+      <StatusCell>
+        <OrderDetailsContext.Provider value={detail}>
+          <StatusButton id={id} status={status} dateOrdered={dateOrdered} />
+        </OrderDetailsContext.Provider>
+      </StatusCell>
+    </TableRow>
   )
 }

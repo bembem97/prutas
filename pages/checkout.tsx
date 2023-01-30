@@ -109,7 +109,7 @@ export default function Checkout() {
     }))
 
     const orderDetails = {
-      order: {
+      customer: {
         name: sanitizeData.name,
         contactNumber: sanitizeData.contactNumber,
         address: {
@@ -149,14 +149,14 @@ export default function Checkout() {
         year: "",
       })
     }
-  }, [reset, formState])
+  }, [reset, formState, isSubmitSuccessful])
 
   useEffect(() => {
     if (result.isSuccess) {
       dispatch(clearCart())
       router.push("/orders")
     }
-  }, [result.isSuccess])
+  }, [result.isSuccess, router, dispatch])
 
   return (
     <Layout title="Checkout">

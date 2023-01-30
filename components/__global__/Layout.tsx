@@ -13,6 +13,8 @@ import dynamic from "next/dynamic"
 import useToggle from "src/hooks/useToggle"
 import Text from "components/datadisplay/Text"
 import MenuIcon from "components/icons/Menu"
+import Badge from "components/datadisplay/Badge"
+import { useAppSelector } from "src/hooks/redux"
 const Authentication = dynamic(import("./Authentication"))
 
 interface LayoutProps extends ComponentProps {
@@ -35,10 +37,10 @@ const active = ({ pathname, href }: ActiveLink) =>
   pathname === href && tw`bg-primary-darker`
 
 const Layout = ({ title, children }: LayoutProps) => {
-  const { pathname, asPath } = useRouter()
+  const { pathname } = useRouter()
   const authRef = useRef(null)
   const { isOpen, setIsOpen } = useToggle(authRef)
-
+  const count = useAppSelector((state) => state.slices.cart.items.length)
   const drawerRef = useRef(null)
   const { isOpen: openDrawer, setIsOpen: setIsOpenDrawer } =
     useToggle(drawerRef)
@@ -67,11 +69,11 @@ const Layout = ({ title, children }: LayoutProps) => {
                 Home
               </Link>
 
-              <div>
+              <Badge count={count}>
                 <Link href="/cart" css={[active({ pathname, href: "/cart" })]}>
                   Cart
                 </Link>
-              </div>
+              </Badge>
 
               <Link
                 href="/checkout"
@@ -100,6 +102,7 @@ const Layout = ({ title, children }: LayoutProps) => {
           >
             <Text tw="w-max">Sign In | Sign Up</Text>
           </AuthButton>
+
           {isOpen && (
             <Authentication
               authRef={authRef}

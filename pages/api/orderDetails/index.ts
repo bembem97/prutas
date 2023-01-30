@@ -35,8 +35,17 @@ export default async function handler(
           })
           .sort({ createdAt: "desc" })
 
-        res.status(200).json({ result: readAllOrders })
-        return
+        return res.status(200).json({ result: readAllOrders })
+
+      case "PATCH":
+        const updateStatus = await OrderDetails.findOneAndUpdate(
+          {
+            _id: req.body.id,
+          },
+          { status: req.body.status }
+        )
+
+        return res.status(200).json({ status: updateStatus })
 
       default:
         throw new Error(`Invalid Request Method.`)

@@ -53,7 +53,7 @@ const TextField = forwardRef<Ref, Props>(
           icon={startIcon}
           tw="border-b-2 border-b-gray-400 focus-within:bg-white focus-within:border-b-primary flex-row transition-colors rounded-tl rounded-tr"
           css={[
-            errors![name as keyof FormTypes] &&
+            errors?.[name as keyof FormTypes] &&
               tw`bg-error-lighter border-error`,
           ]}
         >
