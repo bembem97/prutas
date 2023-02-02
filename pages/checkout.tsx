@@ -34,6 +34,7 @@ import { useAddOrderMutation } from "src/redux/slices/orderDetails"
 import CircularProgress from "components/icons/CircularProgress"
 import { useRouter } from "next/router"
 import { clearCart } from "src/redux/slices/cart"
+import { useSession } from "next-auth/react"
 
 export interface FormTypes {
   name: string | ""
@@ -54,6 +55,7 @@ export default function Checkout() {
   const [addOrder, result] = useAddOrderMutation()
   const router = useRouter()
   const dispatch = useAppDispatch()
+  const session = useSession()
 
   const { items, quantity, total } = useAppSelector(
     (state) => state.slices.cart
@@ -109,6 +111,7 @@ export default function Checkout() {
     }))
 
     const orderDetails = {
+      user: session.data?.user.id,
       customer: {
         name: sanitizeData.name,
         contactNumber: sanitizeData.contactNumber,

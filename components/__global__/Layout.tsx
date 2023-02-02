@@ -8,13 +8,15 @@ import Link from "components/navigations/Link"
 import tw, { styled } from "twin.macro"
 import { useRouter } from "next/router"
 import Button from "components/inputs/Button"
-// import Authentication from "./Authentication"
 import dynamic from "next/dynamic"
 import useToggle from "src/hooks/useToggle"
 import Text from "components/datadisplay/Text"
 import MenuIcon from "components/icons/Menu"
 import Badge from "components/datadisplay/Badge"
 import { useAppSelector } from "src/hooks/redux"
+import { useSession, signIn, signOut } from "next-auth/react"
+import Image from "components/datadisplay/Image"
+
 const Authentication = dynamic(import("./Authentication"))
 
 interface LayoutProps extends ComponentProps {
@@ -36,14 +38,19 @@ const MenuButton = styled(Button)(
 const active = ({ pathname, href }: ActiveLink) =>
   pathname === href && tw`bg-primary-darker`
 
+const ButtonLink = Button.withComponent(Link)
+
+// todo: MAIN COMPONENT
 const Layout = ({ title, children }: LayoutProps) => {
-  const { pathname } = useRouter()
+  const { pathname, query } = useRouter()
   const authRef = useRef(null)
   const { isOpen, setIsOpen } = useToggle(authRef)
   const count = useAppSelector((state) => state.slices.cart.items.length)
   const drawerRef = useRef(null)
   const { isOpen: openDrawer, setIsOpen: setIsOpenDrawer } =
     useToggle(drawerRef)
+
+  const { data: session, status } = useSession()
 
   const hrefName = pathname === "/signin" ? "/signin" : "/signup"
 
@@ -75,44 +82,73 @@ const Layout = ({ title, children }: LayoutProps) => {
                 </Link>
               </Badge>
 
-              <Link
-                href="/checkout"
-                css={[active({ pathname, href: "/checkout" })]}
-              >
-                Checkout
-              </Link>
-              <Link
-                href="/orders"
-                css={[active({ pathname, href: "/orders" })]}
-              >
-                Orders
-              </Link>
+              {session && (
+                <>
+                  <Link
+                    href="/checkout"
+                    css={[active({ pathname, href: "/checkout" })]}
+                  >
+                    Checkout
+                  </Link>
+                  <Link
+                    href="/orders"
+                    css={[active({ pathname, href: "/orders" })]}
+                  >
+                    Orders
+                  </Link>
+                </>
+              )}
             </Stack>
           </div>
 
-          <AuthButton
-            buttonType="text"
-            css={[
-              active({
-                pathname,
-                href: hrefName,
-              }),
-            ]}
-            onClick={() => setIsOpen(true)}
-          >
-            <Text tw="w-max">Sign In | Sign Up</Text>
-          </AuthButton>
+          {/* //todo: IF SESSION IS NOT PRESENT - SIGNIN/SIGNUP    */}
+          {session === null && (
+            <>
+              <AuthButton
+                buttonType="text"
+                css={[
+                  active({
+                    pathname,
+                    href: hrefName,
+                  }),
+                ]}
+                onClick={() => setIsOpen(true)}
+              >
+                <Text tw="w-max">Sign In | Sign Up</Text>
+              </AuthButton>
 
-          {isOpen && (
-            <Authentication
-              authRef={authRef}
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
-            />
+              {isOpen && (
+                <Authentication
+                  authRef={authRef}
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                />
+              )}
+            </>
           )}
-          {/* <Link href="/signin" css={[active({ pathname, href: "/signin" })]}>
-              Sign In
-            </Link> */}
+
+          {session && (
+            <Stack direction="row" alignItems="center" tw="min-w-max ml-auto">
+              <Image
+                src={session.user?.image as string}
+                alt="avatar"
+                width={32}
+                height={32}
+                tw="rounded-full"
+              />
+
+              <ButtonLink
+                href="/api/auth/signout"
+                tw="shadow-none"
+                onClick={(e) => {
+                  e.preventDefault()
+                  signOut({ callbackUrl: (query.callbackUrl as string) || "/" })
+                }}
+              >
+                Sign Out
+              </ButtonLink>
+            </Stack>
+          )}
         </Toolbar>
       </AppBar>
 

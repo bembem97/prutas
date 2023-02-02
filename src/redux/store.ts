@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit"
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from "@reduxjs/toolkit/query"
 import { productApi } from "src/redux/slices/product"
+import { authApi } from "src/redux/slices/auth"
 import { orderDetailsApi } from "src/redux/slices/orderDetails"
 import cartReducer from "src/redux/slices/cart"
 import {
@@ -35,12 +36,14 @@ export const store = configureStore({
       serializableCheck: false,
     })
       .concat(productApi.middleware)
-      .concat(orderDetailsApi.middleware),
+      .concat(orderDetailsApi.middleware)
+      .concat(authApi.middleware),
 
   reducer: {
     // Add the generated reducer as a specific top-level slice
     [productApi.reducerPath]: productApi.reducer,
     [orderDetailsApi.reducerPath]: orderDetailsApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
     slices: persistedReducer,
   },
 })

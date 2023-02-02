@@ -18,7 +18,7 @@ const styles = ({
   buttonType = "button",
 }: ButtonProps) => [
   tw`transition-colors shadow rounded uppercase text-sm`,
-  tw`inline-flex items-center justify-center text-center`,
+  tw`inline-flex items-center justify-center text-center whitespace-nowrap`,
   // tw`bg-primary hover:bg-primary-dark text-white`,
 
   //todo: PROPS

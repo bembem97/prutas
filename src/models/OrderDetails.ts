@@ -1,5 +1,11 @@
-import mongoose from "mongoose"
-const { Schema, models, model, Types } = mongoose
+import mongoose, { Schema, Types } from "mongoose"
+
+type CardType = {
+  cardNumber: number
+  cardHolder: string
+  securityCode: number
+  expirationDate: Date
+}
 
 type CustomerType = {
   name: string
@@ -9,17 +15,11 @@ type CustomerType = {
     city: string
     zipCode: string
   }
-}
-
-type CardType = {
-  cardNumber: number
-  cardHolder: string
-  securityCode: number
-  expirationDate: Date
+  card: CardType
 }
 
 export interface ProductType {
-  _id?: string
+  _id?: Types.ObjectId
   name: string
   price: number
 }
@@ -40,8 +40,8 @@ export type ItemsType = {
 export interface OrderDetailsTypes {
   _id: string
   status: number
+  user: Types.ObjectId
   customer: CustomerType
-  card: CardType
   items: ItemsType
   createdAt: Date
 }
@@ -51,6 +51,10 @@ const OrderDetailsSchema = new Schema<OrderDetailsTypes>(
     status: {
       type: Number,
       default: 0,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
     customer: {
       name: String,
@@ -86,5 +90,6 @@ const OrderDetailsSchema = new Schema<OrderDetailsTypes>(
 )
 
 const OrderDetails =
-  models.OrderDetails || model("OrderDetails", OrderDetailsSchema)
+  mongoose.models.OrderDetails ||
+  mongoose.model("OrderDetails", OrderDetailsSchema)
 export default OrderDetails

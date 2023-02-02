@@ -12,6 +12,7 @@ import { LastCell, MiddleCell } from "pages/cart"
 import { OrderDetailsContext } from "pages/orders"
 import React, { useContext } from "react"
 import useCountdown from "src/hooks/useCountdown"
+import useGetDate from "src/hooks/useGetDate"
 import { useUpdateStatusMutation } from "src/redux/slices/orderDetails"
 import tw from "twin.macro"
 import { timer } from "./StatusButton"
@@ -25,6 +26,8 @@ const OrderDetails = ({ extendTime }: PropTypes) => {
   const deliveryTime = new Date(orderDetails!.createdAt).getTime() + extendTime
   const { days, hours, minutes, seconds } = useCountdown(deliveryTime)
   const countdown = days + hours + minutes + seconds
+
+  const { day, month, year } = useGetDate(orderDetails!.createdAt)
 
   const timeIsUp = timer(countdown, {
     status: orderDetails!.status,
@@ -47,16 +50,17 @@ const OrderDetails = ({ extendTime }: PropTypes) => {
       <Stack direction="row" justifyContent="between" tw="mb-4">
         <Stack>
           <Text variant="subtitle" tw="font-bold">
-            Bembem Cabrera
+            {orderDetails?.customer.name}
           </Text>
           <Text variant="subtitle" tw="text-gray-700">
-            420 X. Villa street,
+            {orderDetails?.customer.address.street}
           </Text>
           <Text variant="subtitle" tw="text-gray-700">
-            Cebu City, 6000
+            {orderDetails?.customer.address.city},{" "}
+            {orderDetails?.customer.address.zipCode}
           </Text>
           <Text variant="subtitle" tw="font-semibold">
-            CN: (63+) 9123456789
+            CN: (63+) {orderDetails?.customer.contactNumber}
           </Text>
         </Stack>
 
@@ -66,7 +70,7 @@ const OrderDetails = ({ extendTime }: PropTypes) => {
           </Text>
 
           <Text variant="subtitle" tw="font-bold text-gray-700 mb-2">
-            January 1, 2023
+            {month} {day}, {year}
           </Text>
 
           <Text variant="subtitle" tw="font-bold">
@@ -74,7 +78,7 @@ const OrderDetails = ({ extendTime }: PropTypes) => {
           </Text>
 
           <Text variant="subtitle" tw="font-bold text-gray-700 mb-2">
-            188830
+            {orderDetails?._id}
           </Text>
         </Stack>
       </Stack>

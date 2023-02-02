@@ -1,7 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next"
+import { getServerSession } from "next-auth"
 import connect from "src/database/mongoose"
 import OrderDetails, { OrderDetailsTypes } from "src/models/OrderDetails"
 import Product from "src/models/Product"
+import { authOptions } from "../auth/[...nextauth]"
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,7 +23,10 @@ export default async function handler(
           )
 
       case "GET":
-        const readAllOrders = await OrderDetails.find({})
+        const session = await getServerSession(req, res, authOptions)
+        const readAllOrders = await OrderDetails.find({
+          user: session?.user.id,
+        })
           .populate({
             path: "items",
             populate: {
