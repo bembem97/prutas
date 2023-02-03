@@ -11,21 +11,19 @@ const options = {
 
 const styles = ({}: TableProps) => [
   //todo: DEFAULTS
-  tw`table w-full border-collapse border-spacing-0 table-auto`,
+  tw`max-w-screen-mobile md:max-w-full md:table w-full border-collapse border-spacing-0 table-auto`,
 
   css`
     @media (max-width: ${theme`screens.xs`}) {
       ${TableCell}:first-of-type {
         min-width: 155px;
       }
-
       ${TableCell}:nth-of-type(1n + 2) {
         min-width: 0.1%;
         width: auto;
       }
     }
   `,
-
   //todo: PROPS
 ]
 

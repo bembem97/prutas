@@ -10,7 +10,7 @@ const options = {
 
 const styles = ({}: TableRowProps) => [
   //todo: DEFAULTS
-  tw`table-row align-middle outline-0 even:bg-gray-50`,
+  tw`block md:table-row align-middle outline-0 md:even:bg-gray-50 shadow md:shadow-none rounded md:rounded-none`,
 
   //todo: PROPS
 ]

@@ -47,7 +47,7 @@ const OrderDetails = ({ extendTime }: PropTypes) => {
         Order Details
       </Text>
 
-      <Stack direction="row" justifyContent="between" tw="mb-4">
+      <Stack justifyContent="between" tw="mb-4 gap-y-4 mobile:flex-row">
         <Stack>
           <Text variant="subtitle" tw="font-bold">
             {orderDetails?.customer.name}
@@ -116,23 +116,23 @@ const OrderDetails = ({ extendTime }: PropTypes) => {
           <TableBody>
             {orderDetails?.items.products.map(({ product, amount }, index) => (
               <TableRow key={index}>
-                <TableCell>
+                <TableCell data-head="Product">
                   {typeof product === "object" && product.name}
                 </TableCell>
-                <TableCell>
+                <TableCell data-head="Price">
                   {typeof product === "object" && product.price}
                 </TableCell>
-                <MiddleCell>{amount.quantity}</MiddleCell>
-                <LastCell>{amount.subtotal}</LastCell>
+                <MiddleCell data-head="Quantity">{amount.quantity}</MiddleCell>
+                <LastCell data-head="Subtotal">{amount.subtotal}</LastCell>
               </TableRow>
             ))}
           </TableBody>
 
           <TableFooter>
             <TableRow>
-              <TableCell as="th"></TableCell>
-              <TableCell as="th"></TableCell>
-              <MiddleCell as="th">
+              <TableCell as="th" tw="hidden md:block"></TableCell>
+              <TableCell as="th" tw="hidden md:block"></TableCell>
+              <MiddleCell as="th" data-head="Total Quantity">
                 <Stack>
                   <Text variant="subtitle">{orderDetails?.items.quantity}</Text>
                   <Text variant="caption" tw="text-gray-700">
@@ -140,7 +140,8 @@ const OrderDetails = ({ extendTime }: PropTypes) => {
                   </Text>
                 </Stack>
               </MiddleCell>
-              <LastCell as="th">
+
+              <LastCell as="th" data-head="Total Price">
                 <Stack>
                   <Text variant="subtitle">
                     &#8369;{orderDetails?.items.total}

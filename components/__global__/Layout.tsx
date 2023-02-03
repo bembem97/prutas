@@ -157,7 +157,7 @@ const Layout = ({ title, children }: LayoutProps) => {
 
       {/* //todo: FOOTER */}
       <AppBar as="footer" className="footer">
-        <Toolbar>&copy; A Small College Project Site.</Toolbar>
+        <Toolbar>&copy; Some Footer.</Toolbar>
       </AppBar>
     </>
   )

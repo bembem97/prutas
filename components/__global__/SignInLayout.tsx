@@ -8,11 +8,12 @@ import Container from "components/layouts/Container"
 import Stack from "components/layouts/Stack"
 import Link from "components/navigations/Link"
 import StartIcon from "components/__other__/StartIcon"
-import React, { Dispatch, SetStateAction } from "react"
+import React, { Dispatch, SetStateAction, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/router"
 import tw from "twin.macro"
+import CircularProgress from "components/icons/CircularProgress"
 
 interface Props {
   signInError?: string
@@ -25,9 +26,10 @@ interface SignInTypes {
 
 const SignInLayout: React.FC<Props> = ({ signInError }) => {
   const {
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
     handleSubmit,
     register,
+    reset,
   } = useForm<SignInTypes>()
   const router = useRouter()
 
@@ -42,6 +44,15 @@ const SignInLayout: React.FC<Props> = ({ signInError }) => {
       throw new Error(error as string)
     }
   }
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({
+        email: "",
+        password: "",
+      })
+    }
+  }, [isSubmitSuccessful, reset])
 
   return (
     <Container maxWidth="md" tw="p-8 mt-4 bg-white rounded shadow-md">
@@ -77,7 +88,9 @@ const SignInLayout: React.FC<Props> = ({ signInError }) => {
           </Text>
         )}
 
-        <Button type="submit">Sign In</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? <CircularProgress width={3} height={3} /> : "Sign In"}
+        </Button>
       </Stack>
 
       {/* //todo: SIGNIN WITH OAUTH (GOOGLE) */}

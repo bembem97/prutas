@@ -54,12 +54,13 @@ const StatusButton = ({ id, status, dateOrdered }: Props) => {
       <Portal open={isOpen}>
         <GridBox
           ref={ref}
-          tw="place-items-center bg-black/40 z-20 fixed inset-0"
+          tw="place-items-center bg-black/40 z-20 fixed inset-0 py-4"
         >
           <Container
             ref={ref}
             css={[
-              tw`bg-white absolute z-50 p-4 rounded-lg shadow-lg max-w-screen-md w-[calc(100%-25px)] md:w-full `,
+              tw`bg-white absolute z-50 p-4 rounded-lg shadow-lg overflow-y-auto max-w-screen-md w-[calc(100%-25px)] md:w-full `,
+              tw`max-h-[calc(100vh-24px)]`,
               isOpen && tw`animate-fade-in`,
               isOpen === false && tw`animate-fade-out`,
             ]}

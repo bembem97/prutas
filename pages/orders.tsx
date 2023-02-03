@@ -20,8 +20,8 @@ import { OrderDetailsTypes } from "src/models/OrderDetails"
 
 const ButtonLink = Button.withComponent(Link)
 
-const CustomerCell = styled(TableCell)(() => tw`w-[min(100%,200px)]`)
-const StatusCell = styled(TableCell)(() => tw`text-center w-40`)
+const CustomerCell = styled(TableCell)(tw`md:w-[min(100%,200px)]`)
+const StatusCell = styled(TableCell)(tw`md:text-center md:w-40`)
 
 export const OrderDetailsContext =
   React.createContext<OrderDetailsTypes | null>(null)
@@ -50,7 +50,7 @@ export default function Orders() {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell as="th">Order no.</TableCell>
+                  <TableCell as="th">Order ID</TableCell>
                   <CustomerCell as="th">Customer</CustomerCell>
                   <TableCell as="th">Date Ordered</TableCell>
                   <StatusCell as="th">Status</StatusCell>
@@ -70,7 +70,7 @@ export default function Orders() {
                 ))}
               </TableBody>
 
-              <TableFooter></TableFooter>
+              {/* <TableFooter></TableFooter> */}
             </Table>
           )}
         </Stack>
@@ -99,12 +99,14 @@ function OrderedList({
 
   return (
     <TableRow key={id}>
-      <TableCell tw="text-xs font-mono">{id}</TableCell>
-      <CustomerCell>{customer}</CustomerCell>
-      <TableCell>
+      <TableCell data-head="Order ID">
+        <span tw="text-xs md:text-base font-mono">{id}</span>
+      </TableCell>
+      <CustomerCell data-head="Customer">{customer}</CustomerCell>
+      <TableCell data-head="Date Ordered">
         {month} {day}, {year}
       </TableCell>
-      <StatusCell>
+      <StatusCell data-head="Status">
         <OrderDetailsContext.Provider value={detail}>
           <StatusButton id={id} status={status} dateOrdered={dateOrdered} />
         </OrderDetailsContext.Provider>

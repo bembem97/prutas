@@ -10,7 +10,7 @@ const options = {
 
 const styles = ({}: TableContainerProps) => [
   //todo: DEFAULTS
-  tw`block overflow-x-auto w-full`,
+  tw`overflow-x-auto`,
 
   //todo: PROPS
 ]

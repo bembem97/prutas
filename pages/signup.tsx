@@ -1,4 +1,5 @@
 import Text from "components/datadisplay/Text"
+import CircularProgress from "components/icons/CircularProgress"
 import GoogleIcon from "components/icons/Google"
 import LockIcon from "components/icons/Lock"
 import UserIcon from "components/icons/User"
@@ -29,7 +30,8 @@ export default function SignUp() {
     handleSubmit,
     getValues,
     register,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<SignUpTypes>()
   const router = useRouter()
   const [responseMessage, setResponseMessage] = useState<string | null>(null)
@@ -59,7 +61,17 @@ export default function SignUp() {
     }
   }, [result, setResponseMessage, router])
 
-  // console.log(responseMessage)
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({
+        name: "",
+        email: "",
+        password: "",
+        repeatPassword: "",
+      })
+    }
+  }, [isSubmitSuccessful, reset])
+
   return (
     <Layout title="Sign Up">
       <Container maxWidth="lg">
@@ -157,7 +169,13 @@ export default function SignUp() {
               </Text>
             )}
 
-            <Button type="submit">Sign Up</Button>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <CircularProgress width={3} height={3} />
+              ) : (
+                "Sign Up"
+              )}
+            </Button>
           </Stack>
 
           {/* //todo: SIGNIN WITH OAUTH (GOOGLE) */}

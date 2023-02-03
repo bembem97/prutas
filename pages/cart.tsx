@@ -55,7 +55,7 @@ export default function Cart() {
           ) : (
             <>
               {/* //todo: CART WITH ITEMS */}
-              <Table>
+              <Table tw="mx-auto">
                 <TableHead>
                   <TableRow>
                     <TableCell as="th">Product</TableCell>
@@ -68,27 +68,41 @@ export default function Cart() {
 
                 <TableBody>
                   {cartItems.map(({ product, amount }) => (
-                    <TableRow key={product._id}>
-                      <TableCell>
-                        <Stack direction="row" columnGap={1}>
-                          <Image
-                            src={product.imageUrl}
-                            alt={product.name}
-                            width={60}
-                            height={60}
-                            square
-                            objectFit="contain"
-                          />
+                    <TableRow
+                      key={product._id}
+                      tw="flex flex-col gap-y-3 md:table-row"
+                    >
+                      <TableCell tw="block">
+                        <Stack tw="md:flex-row" columnGap={1}>
+                          <figure tw="flex items-center justify-between font-bold before:md:hidden before:content-['Product']">
+                            <Image
+                              src={product.imageUrl}
+                              alt={product.name}
+                              width={150}
+                              height={150}
+                              square
+                              objectFit="contain"
+                              tw="w-40 h-40 md:w-[75px] md:h-[75px]"
+                            />
+                          </figure>
 
-                          <Stack>
-                            <Text variant="subtitle">{product.name}</Text>
-                            <Text variant="subtitle">
+                          <Stack rowGap={3} tw="md:gap-y-1">
+                            <Text
+                              variant="subtitle"
+                              tw="before:md:hidden before:content-['Name'] before:font-bold flex justify-between md:inline-block"
+                            >
+                              {product.name}
+                            </Text>
+                            <Text
+                              variant="subtitle"
+                              tw="before:md:hidden before:content-['Price'] before:font-bold flex justify-between md:inline-block"
+                            >
                               &#8369;{product.price}
                             </Text>
                             <Button
                               buttonType="text"
                               color="error"
-                              tw="text-xs"
+                              tw="text-xs before:md:hidden before:content-[''] flex justify-between md:inline-block"
                               onClick={() =>
                                 dispatch(removeFromCart(product._id))
                               }
@@ -99,7 +113,7 @@ export default function Cart() {
                         </Stack>
                       </TableCell>
 
-                      <MiddleCell>
+                      <MiddleCell data-head="Quantity">
                         <Stack
                           direction="row"
                           justifyContent="center"
@@ -130,7 +144,9 @@ export default function Cart() {
                         </Stack>
                       </MiddleCell>
 
-                      <LastCell>&#8369;{amount.subtotal}</LastCell>
+                      <LastCell data-head="Subtotal">
+                        &#8369;{amount.subtotal}
+                      </LastCell>
                     </TableRow>
                   ))}
                 </TableBody>

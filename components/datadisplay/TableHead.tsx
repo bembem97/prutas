@@ -10,7 +10,7 @@ const options = {
 
 const styles = ({}: TableHeadProps) => [
   //todo: DEFAULTS
-  tw`table-header-group border-b-2 border-b-black/25`,
+  tw`hidden md:table-header-group border-b-2 border-b-black/25`,
 
   //todo: PROPS
 ]

@@ -377,35 +377,36 @@ export default function Checkout() {
               </GridBox>
             </Stack>
 
-            <Stack rowGap={1} tw="row-start-1 md:row-auto">
+            <Stack rowGap={1} tw="row-start-1 md:row-auto items-center">
               <Text variant="title">Order Summary</Text>
 
               <Table>
                 <TableHead>
                   <TableRow>
                     <TableCell as="th">Items</TableCell>
-
                     <MiddleCell as="th">Quantity</MiddleCell>
-
                     <LastCell as="th">Subtotal</LastCell>
                   </TableRow>
                 </TableHead>
-
                 <TableBody>
                   {items.map(({ product, amount }) => (
                     <TableRow key={product._id}>
-                      <TableCell tw="capitalize">{product.name}</TableCell>
-                      <MiddleCell>{amount.quantity}</MiddleCell>
-                      <LastCell>&#8369;{amount.subtotal}</LastCell>
+                      <TableCell tw="capitalize" data-head="Items">
+                        {product.name}
+                      </TableCell>
+                      <MiddleCell data-head="Quantity">
+                        {amount.quantity}
+                      </MiddleCell>
+                      <LastCell data-head="Subtotal">
+                        &#8369;{amount.subtotal}
+                      </LastCell>
                     </TableRow>
                   ))}
                 </TableBody>
-
                 <TableFooter>
                   <TableRow>
-                    <TableCell></TableCell>
-
-                    <MiddleCell as="th">
+                    <TableCell tw="hidden md:block"></TableCell>
+                    <MiddleCell as="th" data-head="Total Quantity">
                       <Stack>
                         <Text variant="subtitle">{quantity}</Text>
                         <Text variant="caption" tw="text-gray-700">
@@ -413,8 +414,7 @@ export default function Checkout() {
                         </Text>
                       </Stack>
                     </MiddleCell>
-
-                    <LastCell as="th">
+                    <LastCell as="th" data-head="Total Price">
                       <Stack>
                         <Text variant="subtitle">&#8369;{total}</Text>
                         <Text variant="caption" tw="text-gray-700">

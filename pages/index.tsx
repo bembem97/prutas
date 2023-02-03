@@ -53,12 +53,12 @@ interface Products {
 
 export default function Home({ products }: Products) {
   const elementRef = useRef<HTMLDivElement>(null)
-  const io = useIntersectionObserver(elementRef, {
-    threshold: 0.1,
-    freezeOnceVisible: true,
-  })
+  // const io = useIntersectionObserver(elementRef, {
+  //   threshold: 0.1,
+  //   freezeOnceVisible: true,
+  // })
 
-  const isIntersecting = io?.isIntersecting
+  // const isIntersecting = io?.isIntersecting
 
   const jumpToAllProducts = () => {
     const target = elementRef?.current
@@ -127,10 +127,9 @@ export default function Home({ products }: Products) {
               </Text>
 
               <Text>
-                Prutas is a small project I created as my final project during
-                my college days. It serves as e-commerce for fruit-producing
-                crops and orchards that specializes in providing fresh fruits to
-                customers.
+                Prutas is a small e-commerce project. It serves as e-commerce
+                for fruit-producing crops and orchards that specializes in
+                providing fresh fruits to customers.
               </Text>
             </Stack>
 
@@ -148,7 +147,8 @@ export default function Home({ products }: Products) {
           <Stack as="section" ref={elementRef} tw="mb-3">
             <Text variant="header">All Products</Text>
 
-            {isIntersecting && <AllProducts />}
+            {/* {isIntersecting && <AllProducts />} */}
+            <AllProducts />
           </Stack>
         </GridBox>
       </Container>
