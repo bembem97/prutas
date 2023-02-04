@@ -2,14 +2,14 @@ import NextAuth, { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import connect from "src/database/mongoose"
-import mongoConnect from "src/database/mongodb"
+import clientPromise from "src/database/mongodb"
 import { compare } from "bcrypt"
 import User from "src/models/User"
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
-  // adapter: MongoDBAdapter(mongoConnect, { databaseName: "prutas" }),
+  adapter: MongoDBAdapter(clientPromise),
   session: { strategy: "jwt" },
   providers: [
     GoogleProvider({
