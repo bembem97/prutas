@@ -52,10 +52,11 @@ export interface FormTypes {
 const ButtonLink = Button.withComponent(Link)
 
 export default function Checkout() {
-  const [addOrder, result] = useAddOrderMutation()
-  const router = useRouter()
-  const dispatch = useAppDispatch()
   const session = useSession()
+  const router = useRouter()
+
+  const [addOrder, result] = useAddOrderMutation()
+  const dispatch = useAppDispatch()
 
   const { items, quantity, total } = useAppSelector(
     (state) => state.slices.cart

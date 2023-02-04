@@ -9,7 +9,7 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
-  adapter: MongoDBAdapter(mongoConnect, { databaseName: "prutas" }),
+  // adapter: MongoDBAdapter(mongoConnect, { databaseName: "prutas" }),
   session: { strategy: "jwt" },
   providers: [
     GoogleProvider({
@@ -83,9 +83,14 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, user, token }) {
       session.user.id = token.sub
-
+      // console.log("session token", token)
       return session
     },
+
+    // async jwt({ token, user, account, profile, isNewUser }) {
+    //   console.log("jwt token", token)
+    //   return token
+    // },
   },
 }
 

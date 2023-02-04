@@ -10,6 +10,8 @@ import Stack from "components/layouts/Stack"
 import Link from "components/navigations/Link"
 import Layout from "components/__global__/Layout"
 import StartIcon from "components/__other__/StartIcon"
+import { GetServerSideProps } from "next"
+import { getServerSession } from "next-auth"
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -17,6 +19,7 @@ import { EMAIL, NAME, PASSWORD } from "src/constant"
 import { isErrorWithMessage } from "src/helpers/redux"
 import { useSignupAccountMutation } from "src/redux/slices/auth"
 import tw from "twin.macro"
+import { authOptions } from "./api/auth/[...nextauth]"
 
 interface SignUpTypes {
   name: string
@@ -202,4 +205,19 @@ export default function SignUp() {
       </Container>
     </Layout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions)
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    }
+  }
+
+  return { props: { session } }
 }

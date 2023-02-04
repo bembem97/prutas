@@ -8,7 +8,7 @@ import Container from "components/layouts/Container"
 import Stack from "components/layouts/Stack"
 import Link from "components/navigations/Link"
 import StartIcon from "components/__other__/StartIcon"
-import React, { Dispatch, SetStateAction, useEffect } from "react"
+import React, { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/router"
@@ -34,7 +34,6 @@ const SignInLayout: React.FC<Props> = ({ signInError }) => {
   const router = useRouter()
 
   const onSubmit = async (data: SignInTypes) => {
-    // console.log(data)
     try {
       await signIn("credentials", {
         ...data,

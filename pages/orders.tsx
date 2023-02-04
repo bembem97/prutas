@@ -1,7 +1,7 @@
 import Table from "components/datadisplay/Table"
 import TableBody from "components/datadisplay/TableBody"
 import TableCell from "components/datadisplay/TableCell"
-import TableFooter from "components/datadisplay/TableFooter"
+// import TableFooter from "components/datadisplay/TableFooter"
 import TableHead from "components/datadisplay/TableHead"
 import TableRow from "components/datadisplay/TableRow"
 import Text from "components/datadisplay/Text"
