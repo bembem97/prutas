@@ -8,6 +8,7 @@ import User from "src/models/User"
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   adapter: MongoDBAdapter(mongoConnect, { databaseName: "prutas" }),
   session: { strategy: "jwt" },
   providers: [
