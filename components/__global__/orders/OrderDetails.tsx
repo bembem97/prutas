@@ -130,8 +130,8 @@ const OrderDetails = ({ extendTime }: PropTypes) => {
 
           <TableFooter>
             <TableRow>
-              <TableCell as="th" tw="hidden md:block"></TableCell>
-              <TableCell as="th" tw="hidden md:block"></TableCell>
+              <TableCell as="th" tw="hidden md:table-cell"></TableCell>
+              <TableCell as="th" tw="hidden md:table-cell"></TableCell>
               <MiddleCell as="th" data-head="Total Quantity">
                 <Stack>
                   <Text variant="subtitle">{orderDetails?.items.quantity}</Text>

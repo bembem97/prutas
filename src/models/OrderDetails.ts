@@ -55,6 +55,8 @@ const OrderDetailsSchema = new Schema<OrderDetailsTypes>(
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      index: true,
+      required: true,
     },
     customer: {
       name: String,

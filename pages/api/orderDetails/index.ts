@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import type { NextApiRequest, NextApiResponse } from "next"
 import { getServerSession } from "next-auth"
 import connect from "src/database/mongoose"
@@ -24,6 +25,7 @@ export default async function handler(
 
       case "GET":
         const session = await getServerSession(req, res, authOptions)
+
         const readAllOrders = await OrderDetails.find({
           user: session?.user.id,
         })

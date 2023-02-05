@@ -5,9 +5,10 @@ import Input from "./Input"
 import tw from "twin.macro"
 import StartIcon from "components/__other__/StartIcon"
 import { ErrorMessage } from "@hookform/error-message"
-import { FormTypes } from "pages/checkout"
+// import { FormTypes } from "pages/checkout"
 import { FieldErrorsImpl, UseFormRegister, Validate } from "react-hook-form"
 import { CSSInterpolation } from "@emotion/css"
+import { FormTypes } from "components/__global__/checkout/CheckoutForms"
 
 export type Ref = HTMLDivElement
 

@@ -8,9 +8,9 @@ import User from "src/models/User"
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 
 export const authOptions: NextAuthOptions = {
-  secret: process.env.NEXTAUTH_SECRET,
   adapter: MongoDBAdapter(clientPromise),
   session: { strategy: "jwt" },
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
@@ -83,7 +83,9 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, user, token }) {
       session.user.id = token.sub
-      // console.log("session token", token)
+      // console.log("token", token.sub)
+      // console.log("user", user)
+      // console.log("session", session)
       return session
     },
 
