@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useRef } from "react"
 import Meta from "./Meta"
 import { ComponentProps } from "src/interfaceProps"
 import AppBar from "components/surfaces/AppBar"
@@ -14,10 +14,12 @@ import Text from "components/datadisplay/Text"
 import MenuIcon from "components/icons/Menu"
 import Badge from "components/datadisplay/Badge"
 import { useAppSelector } from "src/hooks/redux"
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signOut } from "next-auth/react"
 import Image from "components/datadisplay/Image"
+import GridBox from "components/layouts/GridBox"
+import Container from "components/layouts/Container"
 
-const Authentication = dynamic(import("./Authentication"))
+const Authentication = dynamic(import("./auth/Authentication"), { ssr: false })
 
 interface LayoutProps extends ComponentProps {
   title: string
@@ -42,7 +44,9 @@ const ButtonLink = Button.withComponent(Link)
 
 // todo: MAIN COMPONENT
 const Layout = ({ title, children }: LayoutProps) => {
-  const { pathname, query } = useRouter()
+  const router = useRouter()
+  const { pathname, query } = router
+
   const authRef = useRef(null)
   const { isOpen, setIsOpen } = useToggle(authRef)
   const count = useAppSelector((state) => state.slices.cart.items.length)
@@ -106,6 +110,17 @@ const Layout = ({ title, children }: LayoutProps) => {
           </div>
 
           {/* //todo: IF SESSION IS NOT PRESENT - SIGNIN/SIGNUP    */}
+          {!session && status === "loading" && (
+            <Stack
+              direction="row"
+              alignItems="center"
+              tw="animate-pulse gap-x-1"
+            >
+              <div tw="basis-auto w-8 h-8 rounded-full bg-gray-500"></div>
+              <div tw="grow w-24 h-4 bg-gray-500 rounded-md"></div>
+            </Stack>
+          )}
+
           {session === null && (
             <>
               <AuthButton
@@ -121,13 +136,22 @@ const Layout = ({ title, children }: LayoutProps) => {
                 <Text tw="w-max">Sign In | Sign Up</Text>
               </AuthButton>
 
-              {isOpen && (
-                <Authentication
-                  authRef={authRef}
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
-                />
-              )}
+              <GridBox
+                tw="place-items-center fixed inset-0 bg-black/40 z-20"
+                css={[isOpen === null && tw`hidden`]}
+              >
+                <Container
+                  ref={authRef}
+                  maxWidth="md"
+                  css={[
+                    tw`relative`,
+                    isOpen && tw`animate-fade-in`,
+                    isOpen === false && tw`animate-fade-out`,
+                  ]}
+                >
+                  {isOpen !== null && <Authentication setIsOpen={setIsOpen} />}
+                </Container>
+              </GridBox>
             </>
           )}
 
@@ -144,9 +168,18 @@ const Layout = ({ title, children }: LayoutProps) => {
               <ButtonLink
                 href="/api/auth/signout"
                 tw="shadow-none"
-                onClick={(e) => {
+                onClick={async (e) => {
                   e.preventDefault()
-                  signOut({ callbackUrl: (query.callbackUrl as string) || "/" })
+                  const data = await signOut({
+                    redirect: false,
+                    callbackUrl:
+                      (query.callbackUrl as string) ||
+                      (query.id && `/product/${query.id as string}`) ||
+                      (pathname === "/checkout" && "/signin") ||
+                      (pathname === "/orders" && "/signin") ||
+                      undefined,
+                  })
+                  router.push(data.url)
                 }}
               >
                 Sign Out

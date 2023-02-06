@@ -2,13 +2,14 @@ import Button from "components/inputs/Button"
 import Container from "components/layouts/Container"
 import GridBox from "components/layouts/GridBox"
 import Stack from "components/layouts/Stack"
-import { Portal } from "components/utils/Portal"
 import React, { useRef, useEffect } from "react"
 import useToggle from "src/hooks/useToggle"
 import tw from "twin.macro"
-import OrderDetails from "./OrderDetails"
 import useCountdown from "src/hooks/useCountdown"
 import { useUpdateStatusMutation } from "src/redux/slices/orderDetails"
+import dynamic from "next/dynamic"
+
+const OrderDetails = dynamic(import("./OrderDetails"))
 
 interface Props {
   id: string
@@ -27,7 +28,7 @@ const StatusButton = ({ id, status, dateOrdered }: Props) => {
   const { isOpen, setIsOpen } = useToggle(ref)
   const [updateStatus, { isLoading: isUpdating }] = useUpdateStatusMutation()
 
-  const extendTime = 1 * 1 * 1 * 30 * 1000
+  const extendTime = 1 * 1 * 4 * 60 * 1000
 
   const deliveryTime = new Date(dateOrdered).getTime() + extendTime
   const { days, hours, minutes, seconds } = useCountdown(deliveryTime)
@@ -51,27 +52,22 @@ const StatusButton = ({ id, status, dateOrdered }: Props) => {
         {statusColor[status].label}
       </Button>
 
-      <Portal open={isOpen}>
-        <GridBox
+      <GridBox
+        tw="place-items-center bg-black/40 z-20 fixed inset-0 py-4"
+        css={[isOpen === null && tw`hidden`]}
+      >
+        <Container
           ref={ref}
-          tw="place-items-center bg-black/40 z-20 fixed inset-0 py-4"
+          css={[
+            tw`bg-white absolute z-50 p-4 rounded-lg shadow-lg overflow-y-auto max-w-screen-md w-[calc(100%-25px)] md:w-full `,
+            tw`max-h-[calc(100vh-24px)]`,
+            isOpen && tw`animate-fade-in`,
+            isOpen === false && tw`animate-fade-out`,
+          ]}
         >
-          <Container
-            ref={ref}
-            css={[
-              tw`bg-white absolute z-50 p-4 rounded-lg shadow-lg overflow-y-auto max-w-screen-md w-[calc(100%-25px)] md:w-full `,
-              tw`max-h-[calc(100vh-24px)]`,
-              isOpen && tw`animate-fade-in`,
-              isOpen === false && tw`animate-fade-out`,
-            ]}
-          >
-            <OrderDetails extendTime={extendTime} />
-            <Button color="error" onClick={() => setIsOpen(false)}>
-              Close Modal
-            </Button>
-          </Container>
-        </GridBox>
-      </Portal>
+          <OrderDetails extendTime={extendTime} setOpen={setIsOpen} />
+        </Container>
+      </GridBox>
     </Stack>
   )
 }

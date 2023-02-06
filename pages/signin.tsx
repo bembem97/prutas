@@ -1,6 +1,6 @@
 import Container from "components/layouts/Container"
 import Layout from "components/__global__/Layout"
-import SignInLayout from "components/__global__/SignInLayout"
+import SignInLayout from "components/__global__/auth/SignInLayout"
 import { GetServerSideProps } from "next"
 import { getServerSession } from "next-auth"
 import React from "react"

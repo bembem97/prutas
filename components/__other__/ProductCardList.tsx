@@ -40,7 +40,11 @@ function ProductCard({ _id, imageUrl, name, variety, price }: DataProduct) {
   const item = { _id, imageUrl, name, variety, price }
   return (
     <Card key={_id} as="article">
-      <Link cardLink href={{ pathname: "/product/[id]", query: { id: _id } }}>
+      <Link
+        cardLink
+        href={{ pathname: "/product/[id]", query: { id: _id } }}
+        tw="w-full justify-center"
+      >
         <CardMedia src={imageUrl} alt="fruit" width={350} height={350} />
 
         <CardContent>

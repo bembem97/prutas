@@ -153,17 +153,26 @@ export default function Cart() {
 
                 <TableFooter>
                   <TableRow>
-                    <TableCell as="th"></TableCell>
-                    <TableCell as="th" align="center">
+                    <TableCell as="th" tw="hidden md:table-cell"></TableCell>
+                    <TableCell as="th" align="center" tw="hidden md:table-cell">
                       Total
                     </TableCell>
-                    <LastCell as="th">&#8369;{total}</LastCell>
+                    <LastCell as="th" data-head="Total" tw="py-6 md:py-2">
+                      &#8369;{total}
+                    </LastCell>
                   </TableRow>
                 </TableFooter>
               </Table>
 
-              <Stack direction="row" justifyContent="end" alignItems="end">
-                <ButtonLink href="/checkout">Proceed To Checkout</ButtonLink>
+              <Stack
+                direction="row"
+                justifyContent="end"
+                alignItems="end"
+                tw="max-w-screen-mobile md:max-w-screen-md mx-auto w-full"
+              >
+                <ButtonLink href="/checkout" tw="w-full mobile:w-auto">
+                  Proceed To Checkout
+                </ButtonLink>
               </Stack>
             </>
           )}

@@ -37,7 +37,12 @@ const SignInLayout: React.FC<Props> = ({ signInError }) => {
     try {
       await signIn("credentials", {
         ...data,
-        callbackUrl: `${router.query.callbackUrl || "/"}`,
+        callbackUrl: `${
+          router.query.callbackUrl ||
+          (router.query.id && `/product/${router.query.id}`) ||
+          router.pathname ||
+          "/"
+        }`,
       })
     } catch (error) {
       throw new Error(error as string)
@@ -110,9 +115,15 @@ const SignInLayout: React.FC<Props> = ({ signInError }) => {
           </StartIcon>
         </Button>
         {/* //todo: CREATE A CREDENTIAL ACCOUNT */}
-        <Stack direction="row" columnGap={0.5}>
+        <Stack direction="row" columnGap={0.5} alignItems="center">
           <Text variant="subtitle">{"Don't have an account?"}</Text>
-          <Link href="/signup" variant="subtitle" color="primary">
+
+          <Link
+            href="/signup"
+            variant="subtitle"
+            color="primary"
+            tw="hover:!bg-transparent hover:underline"
+          >
             Sign Up
           </Link>
         </Stack>

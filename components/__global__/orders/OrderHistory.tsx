@@ -19,7 +19,7 @@ import { OrderDetailsContext } from "pages/orders"
 const ButtonLink = Button.withComponent(Link)
 
 const CustomerCell = styled(TableCell)(tw`md:w-[min(100%,200px)]`)
-const StatusCell = styled(TableCell)(tw`md:text-center md:w-40`)
+const StatusCell = styled(TableCell)(tw`md:w-40`)
 
 // export const OrderDetailsContext =
 //   React.createContext<OrderDetailsTypes | null>(null)
@@ -50,7 +50,9 @@ const OrderHistory = () => {
                 <TableCell as="th">Order ID</TableCell>
                 <CustomerCell as="th">Customer</CustomerCell>
                 <TableCell as="th">Date Ordered</TableCell>
-                <StatusCell as="th">Status</StatusCell>
+                <StatusCell as="th" align="center">
+                  Status
+                </StatusCell>
               </TableRow>
             </TableHead>
 

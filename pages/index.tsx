@@ -91,7 +91,11 @@ export default function Home({ products }: Products) {
         <GridBox gridColumns={1} gap={6}>
           {/* //todo: SERVICES */}
           <GridBox as="section" gridColumns={{ xs: 1, sm: 2, md: 4 }} gap={1}>
-            <Text as="h1" variant="header" tw="xs:col-span-2 md:col-span-4">
+            <Text
+              as="h1"
+              variant="header"
+              tw="col-span-1 sm:col-span-2 md:col-span-4"
+            >
               Services
             </Text>
 
@@ -112,7 +116,11 @@ export default function Home({ products }: Products) {
 
           {/* //todo: POPULAR PRODUCTS */}
           <GridBox as="section" gridColumns={{ xs: 1, sm: 2, md: 4 }} gap={1}>
-            <Text as="h1" variant="header" tw="xs:col-span-2 md:col-span-4">
+            <Text
+              as="h1"
+              variant="header"
+              tw="col-span-1 sm:col-span-2 md:col-span-4"
+            >
               Popular Products
             </Text>
 

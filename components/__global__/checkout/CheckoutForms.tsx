@@ -415,17 +415,19 @@ const CheckoutForms = () => {
               </TableFooter>
             </Table>
 
-            <Button
-              form="checkout-form"
-              tw="mt-4 disabled:bg-gray-500"
-              disabled={result.isLoading}
-            >
-              {result.isLoading ? (
-                <CircularProgress width={3} height={3} />
-              ) : (
-                "Purchase"
-              )}
-            </Button>
+            <div tw="w-full flex justify-end max-w-screen-mobile">
+              <Button
+                form="checkout-form"
+                tw="mt-4 disabled:bg-gray-500 w-full md:w-auto"
+                disabled={result.isLoading}
+              >
+                {result.isLoading ? (
+                  <CircularProgress width={3} height={3} />
+                ) : (
+                  "Purchase"
+                )}
+              </Button>
+            </div>
           </Stack>
 
           <Stack tw="" alignItems="start">
