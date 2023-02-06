@@ -37,28 +37,28 @@ export const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        try {
-          await connect()
-          const user = await User.findOne({ email: credentials?.email })
-          const message = "Email or Password is incorrect."
+        // try {
+        await connect()
+        const user = await User.findOne({ email: credentials?.email })
+        const message = "Email or Password is incorrect."
 
-          if (!user) {
-            throw new Error(message)
-          }
-
-          const isPasswordCorrect = await compare(
-            credentials!.password,
-            user.password
-          )
-
-          if (!isPasswordCorrect) {
-            throw new Error(message)
-          }
-
-          return user
-        } catch (error) {
-          throw new Error(error as string)
+        if (!user) {
+          throw new Error(message)
         }
+
+        const isPasswordCorrect = await compare(
+          credentials!.password,
+          user.password
+        )
+
+        if (!isPasswordCorrect) {
+          throw new Error(message)
+        }
+
+        return user
+        // } catch (error) {
+        //   throw new Error(error as string)
+        // }
       },
     }),
   ],
