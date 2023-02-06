@@ -1,13 +1,30 @@
 import Container from "components/layouts/Container"
 import Layout from "components/__global__/Layout"
 import SignInLayout from "components/__global__/auth/SignInLayout"
-import { GetServerSideProps } from "next"
-import { getServerSession } from "next-auth"
+// import { GetServerSideProps } from "next"
+// import { getServerSession } from "next-auth"
+// import { authOptions } from "./api/auth/[...nextauth]"
 import React from "react"
 import tw from "twin.macro"
-import { authOptions } from "./api/auth/[...nextauth]"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/router"
+import SpinningProgress from "components/progress/SpinningProgress"
 
-export default function SignIn({ signInError }: { signInError: string }) {
+export default function SignIn() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
+
+  const signInError = router.query?.error as string
+
+  if (!session && status === "loading") {
+    return <SpinningProgress />
+  }
+
+  if (session) {
+    router.push("/")
+    return
+  }
+
   return (
     <Layout title="Sign In">
       <Container maxWidth="sm">
@@ -17,25 +34,25 @@ export default function SignIn({ signInError }: { signInError: string }) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions)
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const session = await getServerSession(context.req, context.res, authOptions)
 
-  if (session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    }
-  }
+//   if (session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     }
+//   }
 
-  const signInError = context.query
-  if (isSerializedError(signInError)) {
-    return { props: { signInError: signInError.error } }
-  }
+//   const signInError = context.query
+//   if (isSerializedError(signInError)) {
+//     return { props: { signInError: signInError.error } }
+//   }
 
-  return { props: { session } }
-}
+//   return { props: { session } }
+// }
 
 interface WithErrorQuery {
   query: {

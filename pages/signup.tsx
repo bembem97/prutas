@@ -8,10 +8,12 @@ import SignupField from "components/inputs/TextField/SignupField"
 import Container from "components/layouts/Container"
 import Stack from "components/layouts/Stack"
 import Link from "components/navigations/Link"
+import SpinningProgress from "components/progress/SpinningProgress"
 import Layout from "components/__global__/Layout"
 import StartIcon from "components/__other__/StartIcon"
 import { GetServerSideProps } from "next"
 import { getServerSession } from "next-auth"
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -74,6 +76,18 @@ export default function SignUp() {
       })
     }
   }, [isSubmitSuccessful, reset])
+
+  // todo: AUTH
+  const { data: session, status } = useSession()
+
+  if (!session && status === "loading") {
+    return <SpinningProgress />
+  }
+
+  if (session) {
+    router.push("/")
+    return
+  }
 
   return (
     <Layout title="Sign Up">
@@ -207,17 +221,17 @@ export default function SignUp() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions)
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const session = await getServerSession(context.req, context.res, authOptions)
 
-  if (session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    }
-  }
+//   if (session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     }
+//   }
 
-  return { props: { session } }
-}
+//   return { props: { session } }
+// }

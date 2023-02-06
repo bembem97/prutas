@@ -175,8 +175,6 @@ const Layout = ({ title, children }: LayoutProps) => {
                     callbackUrl:
                       (query.callbackUrl as string) ||
                       (query.id && `/product/${query.id as string}`) ||
-                      (pathname === "/checkout" && "/signin") ||
-                      (pathname === "/orders" && "/signin") ||
                       undefined,
                   })
                   router.push(data.url)
