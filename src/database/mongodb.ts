@@ -9,6 +9,14 @@ const uri: string = process.env.MONGODB_URI
 let client: MongoClient
 let clientPromise: Promise<MongoClient>
 
+const options = {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  maxIdleTimeMS: 270000,
+  minPoolSize: 2,
+  maxPoolSize: 4,
+}
+
 if (process.env.NODE_ENV === "development") {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
@@ -18,13 +26,13 @@ if (process.env.NODE_ENV === "development") {
   }
 
   if (!globalWithMongoClientPromise._mongoClientPromise) {
-    client = new MongoClient(uri)
+    client = new MongoClient(uri, options)
     globalWithMongoClientPromise._mongoClientPromise = client.connect()
   }
   clientPromise = globalWithMongoClientPromise._mongoClientPromise
 } else {
   // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri)
+  client = new MongoClient(uri, options)
   clientPromise = client.connect()
 }
 
