@@ -15,5 +15,5 @@ const styles = ({}: CardActionProps) => [
   //todo: PROPS
 ]
 
-const CardAction = styled("div", options)(styles)
+const CardAction = styled("footer", options)(styles)
 export default CardAction

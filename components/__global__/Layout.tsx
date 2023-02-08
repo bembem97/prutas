@@ -76,10 +76,6 @@ const Layout = ({ title, children }: LayoutProps) => {
               alignItems="center"
               tw="w-full text-white bg-primary-dark mobile:bg-primary shadow-md mobile:shadow-none absolute top-full mobile:static mobile:top-auto left-0 h-12"
             >
-              {/* <Link href="/" css={[active({ pathname, href: "/" })]}>
-                Home
-              </Link> */}
-
               <Link href="/home" css={[active({ pathname, href: "/" })]}>
                 Home
               </Link>

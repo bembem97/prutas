@@ -11,8 +11,9 @@ const options = {
 
 const styles = ({ url }: HeroProps) => [
   //todo: DEFAULTS
-  tw`grid h-screen bg-red-200 p-4 place-items-center bg-no-repeat bg-fixed bg-cover relative`,
+  tw`grid h-screen bg-green-400 p-4 place-items-center bg-no-repeat bg-fixed bg-cover relative`,
   tw`before:absolute before:inset-0 before:bg-black/30`,
+  tw`bg-gradient-to-r from-green-400 via-yellow-400 to-purple-400`,
   css`
     max-height: ${theme`screens.lg`};
   `,
