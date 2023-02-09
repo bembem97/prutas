@@ -4,31 +4,38 @@ import Container from "components/layouts/Container"
 import Grid from "components/layouts/Grid"
 import Stack from "components/layouts/Stack"
 import Paper from "components/surfaces/Paper"
-import Layout from "components/__global__/Layout"
-import Link from "next/link"
+import Head from "next/head"
+import { useRouter } from "next/router"
 import tw from "twin.macro"
 
-const ButtonLink = Button.withComponent(Link)
-
 export default function Custom500() {
+  const router = useRouter()
+
   return (
-    <Layout title="500 Internal Server Error">
-      <Grid tw="h-full place-items-center">
+    <>
+      <Head>
+        <title>500 Internal Server Error</title>
+      </Head>
+
+      <Grid tw="h-full place-items-center pt-5">
         <Paper>
-          <Container padding={2}>
+          <Container tw="p-[clamp(theme(spacing.2),3vw,theme(spacing.6))]">
             <Stack rowGap={3} alignItems="center">
               <Text variant="header" color="error" align="center">
                 500 Internal Server Error
               </Text>
-              <Text tw="font-bold">Oops, something went wrong.</Text>
-              <Text tw="font-bold">
-                Try to referesh this page or go{" "}
-                <ButtonLink href="/">Home</ButtonLink>
+              <Text tw="font-bold" align="center">
+                Oops, something went wrong.
               </Text>
+              <Text tw="font-bold" align="center">
+                Try to referesh this page.
+              </Text>
+
+              <Button onClick={() => router.reload()}>Reload</Button>
             </Stack>
           </Container>
         </Paper>
       </Grid>
-    </Layout>
+    </>
   )
 }

@@ -37,23 +37,22 @@ export default function Cart() {
 
   return (
     <Layout title="Cart">
-      <Container maxWidth="md" tw="pt-5">
+      <Container maxWidth="md">
         <Stack rowGap={3}>
-          <Stack direction="row" justifyContent="between" alignItems="start">
-            <Text variant="header">Shopping Cart</Text>
-
-            {cartItems.length > 0 && (
+          {cartItems.length > 0 && (
+            <Stack direction="row" justifyContent="between" alignItems="start">
               <Button color="error" onClick={() => dispatch(clearCart())}>
                 Remove Items
               </Button>
-            )}
-          </Stack>
+            </Stack>
+          )}
 
           {/* //todo: EMPTY CART MESSAGE */}
           {cartItems.length === 0 ? (
             <EmptyCartMessage />
           ) : (
             <>
+              <Text variant="header">Shopping Cart</Text>
               {/* //todo: CART WITH ITEMS */}
               <Table tw="mx-auto">
                 <TableHead>
