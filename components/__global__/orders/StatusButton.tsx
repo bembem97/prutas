@@ -60,7 +60,7 @@ const StatusButton = ({ id, status, dateOrdered }: Props) => {
           ref={ref}
           css={[
             tw`bg-white absolute z-50 p-4 rounded-lg shadow-lg overflow-y-auto max-w-screen-md w-[calc(100%-25px)] md:w-full `,
-            tw`max-h-[calc(100vh-24px)]`,
+            tw`max-h-[calc(100vh-100px)]`,
             isOpen && tw`animate-fade-in`,
             isOpen === false && tw`animate-fade-out`,
           ]}

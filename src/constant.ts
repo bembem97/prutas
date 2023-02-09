@@ -18,7 +18,7 @@ export const CONTACT = {
   REQUIRED: "Contact number is required.",
   VALID: {
     MESSAGE: "Contact number is invalid.",
-    PATTERN: /^[0-9]{11,15}$/,
+    PATTERN: /^[0-9]{11}$/,
   },
 }
 
