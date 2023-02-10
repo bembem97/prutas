@@ -120,7 +120,7 @@ const OrderDetails = ({ extendTime, setOpen }: PropTypes) => {
             <TableBody>
               {orderDetails?.items.products.map(
                 ({ product, amount }, index) => (
-                  <TableRow key={index}>
+                  <TableRow key={index} tw="even:bg-gray-100">
                     <TableCell data-head="Product">
                       {typeof product === "object" && product.name}
                     </TableCell>

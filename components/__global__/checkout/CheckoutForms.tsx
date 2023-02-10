@@ -1,4 +1,4 @@
-import tw from "twin.macro"
+import tw, { styled } from "twin.macro"
 import Text from "components/datadisplay/Text"
 import Container from "components/layouts/Container"
 import GridBox from "components/layouts/GridBox"
@@ -7,12 +7,12 @@ import Stack from "components/layouts/Stack"
 import Button from "components/inputs/Button"
 import TextField from "components/inputs/TextField"
 import Link from "components/navigations/Link"
-import TableRow from "components/datadisplay/TableRow"
-import Table from "components/datadisplay/Table"
-import TableHead from "components/datadisplay/TableHead"
-import TableCell from "components/datadisplay/TableCell"
-import TableBody from "components/datadisplay/TableBody"
-import TableFooter from "components/datadisplay/TableFooter"
+// import TableRow from "components/datadisplay/TableRow"
+// import Table from "components/datadisplay/Table"
+// import TableHead from "components/datadisplay/TableHead"
+// import TableCell from "components/datadisplay/TableCell"
+// import TableBody from "components/datadisplay/TableBody"
+// import TableFooter from "components/datadisplay/TableFooter"
 import { useAppDispatch, useAppSelector } from "src/hooks/redux"
 import EmptyCartMessage from "components/__other__/EmptyCartMessage"
 import { useForm } from "react-hook-form"
@@ -33,7 +33,7 @@ import CircularProgress from "components/icons/CircularProgress"
 import { useRouter } from "next/router"
 import { clearCart } from "src/redux/slices/cart"
 import { useSession } from "next-auth/react"
-import { LastCell, MiddleCell } from "pages/cart"
+// import { LastCell, MiddleCell } from "pages/cart"
 
 export interface FormTypes {
   name: string | ""
@@ -47,6 +47,9 @@ export interface FormTypes {
   month: number | ""
   year: number | ""
 }
+
+const MiddleCell = styled("td")(() => tw`text-center`)
+const LastCell = styled("td")(() => tw`text-right`)
 
 const ButtonLink = Button.withComponent(Link)
 
@@ -369,33 +372,36 @@ const CheckoutForms = () => {
           <Stack rowGap={1} tw="row-start-1 md:row-auto items-center">
             <Text variant="title">Order Summary</Text>
 
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell as="th">Items</TableCell>
+            <table tw="w-full">
+              <thead tw="[&_td]:font-bold [&_th]:py-4 border-b-2 border-double">
+                <tr>
+                  <th tw="text-left">Items</th>
                   <MiddleCell as="th">Quantity</MiddleCell>
                   <LastCell as="th">Subtotal</LastCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
+                </tr>
+              </thead>
+
+              <tbody tw="[&_td]:py-3">
                 {items.map(({ product, amount }) => (
-                  <TableRow key={product._id}>
-                    <TableCell tw="capitalize" data-head="Items">
+                  <tr key={product._id} tw="even:bg-white">
+                    <td tw="capitalize" data-head="Items">
                       {product.name}
-                    </TableCell>
+                    </td>
                     <MiddleCell data-head="Quantity">
                       {amount.quantity}
                     </MiddleCell>
                     <LastCell data-head="Subtotal">
                       &#8369;{amount.subtotal}
                     </LastCell>
-                  </TableRow>
+                  </tr>
                 ))}
-              </TableBody>
-              <TableFooter>
-                <TableRow>
-                  <TableCell tw="hidden md:block"></TableCell>
-                  <MiddleCell as="th" data-head="Total Quantity">
+              </tbody>
+
+              <tfoot tw="[&_span]:text-lg">
+                <tr>
+                  <td tw="py-4"></td>
+
+                  <MiddleCell tw="py-4" data-head="Total Quantity">
                     <Stack>
                       <Text variant="subtitle">{quantity}</Text>
                       <Text variant="caption" tw="text-gray-700">
@@ -403,7 +409,8 @@ const CheckoutForms = () => {
                       </Text>
                     </Stack>
                   </MiddleCell>
-                  <LastCell as="th" data-head="Total Price">
+
+                  <LastCell tw="py-4" data-head="Total Price">
                     <Stack>
                       <Text variant="subtitle">&#8369;{total}</Text>
                       <Text variant="caption" tw="text-gray-700">
@@ -411,9 +418,9 @@ const CheckoutForms = () => {
                       </Text>
                     </Stack>
                   </LastCell>
-                </TableRow>
-              </TableFooter>
-            </Table>
+                </tr>
+              </tfoot>
+            </table>
 
             <div tw="w-full flex justify-end max-w-screen-mobile">
               <Button
