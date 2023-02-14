@@ -1,6 +1,6 @@
-import Container from "components/layouts/Container"
-import Layout from "components/__global__/Layout"
-import SignInLayout from "components/__global__/auth/SignInLayout"
+import Container from "components/shared/containers/Container"
+import Layout from "components/layout/Layout"
+import SignInLayout from "components/global/auth/SignInLayout"
 // import { GetServerSideProps } from "next"
 // import { getServerSession } from "next-auth"
 // import { authOptions } from "./api/auth/[...nextauth]"
@@ -8,30 +8,30 @@ import React from "react"
 import tw from "twin.macro"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
-import SpinningProgress from "components/progress/SpinningProgress"
+import SpinningProgress from "components/shared/progress/SpinningProgress"
 
 export default function SignIn() {
-  const { data: session, status } = useSession()
-  const router = useRouter()
+    const { data: session, status } = useSession()
+    const router = useRouter()
 
-  const signInError = router.query?.error as string
+    const signInError = router.query?.error as string
 
-  if (!session && status === "loading") {
-    return <SpinningProgress />
-  }
+    if (!session && status === "loading") {
+        return <SpinningProgress />
+    }
 
-  if (session) {
-    router.push("/")
-    return
-  }
+    if (session) {
+        router.push("/")
+        return
+    }
 
-  return (
-    <Layout title="Sign In">
-      <Container maxWidth="sm">
-        <SignInLayout signInError={signInError} />
-      </Container>
-    </Layout>
-  )
+    return (
+        <Layout title="Sign In">
+            <Container maxWidth="sm">
+                <SignInLayout signInError={signInError} />
+            </Container>
+        </Layout>
+    )
 }
 
 // export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -55,11 +55,11 @@ export default function SignIn() {
 // }
 
 interface WithErrorQuery {
-  query: {
-    error: string
-  }
+    query: {
+        error: string
+    }
 }
 
 export function isSerializedError(query: unknown): query is WithErrorQuery {
-  return typeof query === "object" && query != null && "error" in query
+    return typeof query === "object" && query != null && "error" in query
 }
