@@ -39,27 +39,37 @@ export default function Cart() {
         <Layout title="Cart">
             <Container maxWidth="md">
                 <Stack rowGap={3}>
-                    {cartItems.length > 0 && (
-                        <Stack
-                            direction="row"
-                            justifyContent="between"
-                            alignItems="start"
-                        >
-                            <Button
-                                color="error"
-                                onClick={() => dispatch(clearCart())}
-                            >
-                                Remove Items
-                            </Button>
-                        </Stack>
-                    )}
-
                     {/* //todo: EMPTY CART MESSAGE */}
                     {cartItems.length === 0 ? (
                         <EmptyCartMessage />
                     ) : (
                         <>
-                            <Text variant="header">Shopping Cart</Text>
+                            <Stack
+                                direction="row"
+                                alignItems="end"
+                                justifyContent="between"
+                                tw="flex-wrap gap-y-5 mt-5 md:mt-0 max-w-screen-mobile md:max-w-screen-lg w-full mx-auto"
+                            >
+                                <Text variant="header" tw="mb-0">
+                                    Shopping Cart
+                                </Text>
+                                {cartItems.length > 0 && (
+                                    <Stack
+                                        direction="row"
+                                        justifyContent="between"
+                                        alignItems="start"
+                                    >
+                                        <Button
+                                            color="error"
+                                            onClick={() =>
+                                                dispatch(clearCart())
+                                            }
+                                        >
+                                            Remove Items
+                                        </Button>
+                                    </Stack>
+                                )}
+                            </Stack>
                             {/* //todo: CART WITH ITEMS */}
                             <Table tw="mx-auto">
                                 <TableHead>
@@ -224,7 +234,7 @@ export default function Cart() {
                             >
                                 <ButtonLink
                                     href="/checkout"
-                                    tw="w-full mobile:w-auto"
+                                    tw="w-full mobile:w-auto py-5 md:py-2"
                                 >
                                     Proceed To Checkout
                                 </ButtonLink>
